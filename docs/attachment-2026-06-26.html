@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Attachment Brain &middot; 依附關係文獻日報 &middot; 2026年6月26日</title>
+<meta name="description" content="2026年6月26日 依附關係文獻日報，由 AI 自動彙整 PubMed 最新論文"/>
+<style>
+  :root { --bg: #f6f1e8; --surface: #fffaf2; --line: #d8c5ab; --text: #2b2118; --muted: #766453; --accent: #8c4f2b; --accent-soft: #ead2bf; --card-bg: color-mix(in srgb, var(--surface) 92%, white); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(circle at top, #fff6ea 0, var(--bg) 55%, #ead8c6 100%); color: var(--text); font-family: "Noto Sans TC", "PingFang TC", "Helvetica Neue", Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 60px 32px 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 48px; height: 48px; border-radius: 14px; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 20px rgba(140,79,43,0.25); }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .header-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.3px; }
+  .badge-date { background: var(--accent-soft); border: 1px solid var(--line); color: var(--accent); }
+  .badge-count { background: rgba(140,79,43,0.06); border: 1px solid var(--line); color: var(--muted); }
+  .badge-source { background: transparent; color: var(--muted); font-size: 11px; padding: 0 4px; }
+  .summary-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px 32px; margin-bottom: 32px; box-shadow: 0 20px 60px rgba(61,36,15,0.06); animation: fadeUp 0.5s ease 0.1s both; }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--accent); margin-bottom: 16px; }
+  .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .section-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; background: var(--accent-soft); }
+  .news-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 22px 26px; margin-bottom: 12px; box-shadow: 0 8px 30px rgba(61,36,15,0.04); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .news-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .news-card.featured { border-left: 3px solid var(--accent); }
+  .news-card.featured:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .rank-badge { background: var(--accent); color: #fff7f0; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .emoji-icon { font-size: 18px; }
+  .card-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .emoji-sm { font-size: 14px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .journal-source { font-size: 12px; color: var(--accent); margin-bottom: 8px; opacity: 0.8; }
+  .news-card p { font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .utility-reason { font-size: 12px !important; color: var(--accent) !important; opacity: 0.85; margin-top: 4px; }
+  .card-footer { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { padding: 2px 9px; background: var(--accent-soft); border-radius: 999px; font-size: 11px; color: var(--accent); }
+  .news-card a { font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0.7; margin-left: auto; }
+  .news-card a:hover { opacity: 1; }
+  .utility-high { color: #5a7a3a; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(90,122,58,0.1); border-radius: 4px; }
+  .utility-mid { color: #9f7a2e; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(159,122,46,0.1); border-radius: 4px; }
+  .utility-low { color: var(--muted); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(118,100,83,0.08); border-radius: 4px; }
+  .utility-sm { font-size: 10px; }
+  .pico-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(255,253,249,0.8); border-radius: 14px; border: 1px solid var(--line); }
+  .pico-item { display: flex; gap: 8px; align-items: baseline; }
+  .pico-label { font-size: 10px; font-weight: 700; color: #fff7f0; background: var(--accent); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .pico-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .keywords-section { margin-bottom: 36px; }
+  .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .keyword { padding: 5px 14px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; font-size: 12px; color: var(--accent); cursor: default; transition: background 0.2s; }
+  .keyword:hover { background: rgba(140,79,43,0.18); }
+  .topic-section { margin-bottom: 36px; }
+  .topic-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .topic-name { font-size: 13px; color: var(--muted); width: 110px; flex-shrink: 0; text-align: right; }
+  .topic-bar-bg { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .topic-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #c47a4a); border-radius: 4px; transition: width 0.6s ease; }
+  .topic-count { font-size: 12px; color: var(--accent); width: 24px; }
+  .links-banner { margin-top: 48px; display: flex; flex-direction: column; gap: 12px; animation: fadeUp 0.5s ease 0.4s both; }
+  .link-card { display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; text-decoration: none; color: var(--text); transition: all 0.2s; box-shadow: 0 8px 30px rgba(61,36,15,0.04); }
+  .link-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .link-icon { font-size: 28px; flex-shrink: 0; }
+  .link-info { flex: 1; }
+  .link-name { font-size: 15px; font-weight: 700; color: var(--text); }
+  .link-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .link-arrow { font-size: 18px; color: var(--accent); font-weight: 700; }
+  .coffee-card { background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%); border-color: #f59e0b40; }
+  footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; animation: fadeUp 0.5s ease 0.5s both; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) { .container { padding: 36px 18px 60px; } .summary-card, .news-card { padding: 20px 18px; } .pico-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 6px; text-align: center; } .topic-name { width: 80px; font-size: 11px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">🔗</div>
+    <div class="header-text">
+      <h1>Attachment Brain &middot; 依附關係文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">📅 2026年6月26日</span>
+        <span class="badge badge-count">📊 10 篇文獻</span>
+        <span class="badge badge-source">Powered by PubMed + Zhipu AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日文獻趨勢</h2>
+    <p class="summary-text">今日文獻重點聚焦於依附理論在關係轉銜期的應用，特別是初為人父母者的伴侶互動與科技時代下的母職重塑，同時有一篇高品質後設分析釐清童年經驗透過依附等中介因子導致 PTSD 的路徑。</p>
+  </div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">⭐</span>今日精選 TOP Picks</div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#1</span>
+        <span class="emoji-icon">💑</span>
+        <span class="utility-high">高實用性</span>
+      </div>
+      <h3>依附不安全感與照顧行為及性滿意度交互作用，預測初為人父母者的關係滿意度</h3>
+      <p class="journal-source">Journal of Family Psychology &middot; Attachment insecurities interact with caregiving and sexuality to predict relationship satisfaction in first-time parents.</p>
+      <p>產前依附焦慮與逃避直接損害產後關係滿意度，但自身較高的性滿意度能緩衝此負面效應，而伴侶支持則僅能緩衝依附逃避的影響，臨床上應常規評估新手父母的依附取向與性滿意度。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">195對初為人父母的伴侶（產後4個月）</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">產前依附不安全感（焦慮與逃避）</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">低依附不安全感者</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">產後14天日記追蹤的每日關係滿意度（受性滿意度與伴侶支持調節）</span></div>
+      </div>
+      <p class="utility-reason">💡 以日記法捕捉日常波動，明確指出可介入的保護因子（性滿意度、伴侶支持），直接適用於夫妻諮商與產後護理。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">成人依附</span><span class="tag">依附焦慮</span><span class="tag">依附逃避</span><span class="tag">親密關係</span><span class="tag">親職</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42347800/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#2</span>
+        <span class="emoji-icon">👠</span>
+        <span class="utility-high">高實用性</span>
+      </div>
+      <h3>女性不良童年經驗、依附風格與心理幸福感及灰姑娘症候群之關聯</h3>
+      <p class="journal-source">Journal of Psychosocial Nursing and Mental Health Services &middot; Relationships Among Women's Adverse Childhood Experiences, Attachment Styles, and Psychological Well-Being and Cinderella Syndrome.</p>
+      <p>威脅性童年記憶與焦慮矛盾依附是灰姑娘症候群（渴望被拯救、被動依賴）最一致的正向預測因子，安全依附與較高教育水準則具保護作用，支持以創傷知情與依附導向介入提升女性自主性。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">334名女性</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">不良童年經驗與不安全依附風格</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無ACEs與安全依附者</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">灰姑娘症候群量表總分與各子維度分數</span></div>
+      </div>
+      <p class="utility-reason">💡 將依附理論連結至特定文化症候群，為臨床護理與心理衛生實務提供明確的評估與介入方向。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">成人依附</span><span class="tag">依附與創傷</span><span class="tag">逃避依附</span><span class="tag">心理治療</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42347578/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#3</span>
+        <span class="emoji-icon">📱</span>
+        <span class="utility-high">高實用性</span>
+      </div>
+      <h3>科技媒介的母性星座：智能手機與AI作為母親心理組織的新興行動者</h3>
+      <p class="journal-source">JMIR Pediatrics and Parenting &middot; The Technologically Mediated Motherhood Constellation: Smartphone and AI as Novel Actors in Maternal Psychic Organization.</p>
+      <p>將Stern的母性星座概念延伸至數位時代，論述智能手機與AI非中性工具而是系統性行動者，同時擴展支持網絡與引入互動干擾，提出從「科技增強」到「科技干擾」的光譜模型供臨床評估。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">當代數位環境中的母親（理論論文）</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">智能手機與AI在育兒中的整合使用</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無科技介入的傳統母職環境</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">母性心理組織（母性星座）的重塑與功能變化</span></div>
+      </div>
+      <p class="utility-reason">💡 為日益常見的「科技干擾」現象提供理論框架，助臨床工作者辨識數位工具對母嬰依附與心智化的雙面影響。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">嬰幼兒依附</span><span class="tag">親職</span><span class="tag">照顧者敏感度</span><span class="tag">心理治療</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42339643/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#4</span>
+        <span class="emoji-icon">🧠</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>不良與正向童年經驗與PTSD及複雜型PTSD關聯之心理中介因子：系統性文獻回顧與後設分析</h3>
+      <p class="journal-source">Journal of Traumatic Stress &middot; Psychological mediators of the associations between adverse and benevolent childhood experiences and posttraumatic stress disorder (PTSD) and complex PTSD: A systematic review and meta-analysis.</p>
+      <p>涵蓋63項研究、31,540名參與者的後設分析顯示，情緒調節與不適應因應策略顯著中介ACEs與PTSD的關聯，依附風格亦為中介因子之一但文獻量仍不足，正向童年經驗與CPTSD路徑的研究更為匱乏。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">31,540名成人（來自63項研究）</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">不良童年經驗與正向童年經驗</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無或低童年經驗暴露者</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">PTSD與複雜型PTSD症狀（透過六類心理中介因子）</span></div>
+      </div>
+      <p class="utility-reason">💡 雖然依附僅為六類中介因子之一且效果量偏小，但整體架構有助臨床工作者理解從童年經驗到PTSD的多重路徑。</p>
+      <div class="card-footer">
+        <span class="tag">依附與PTSD</span><span class="tag">依附與創傷</span><span class="tag">成人依附</span><span class="tag">依附與情緒調節</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42347573/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#5</span>
+        <span class="emoji-icon">🧘</span>
+        <span class="utility-low">低實用性</span>
+      </div>
+      <h3>教室正念介入之參與度與有效性的心理社會預測因子</h3>
+      <p class="journal-source">PLOS ONE &middot; Psychosocial factors associated with engagement and efficacy of mindfulness intervention in the classroom.</p>
+      <p>在控制多重比較後，內在動機是正念練習參與度與有用感唯一的正向預測因子，而依附風格與衝突風格等變項未達顯著，顯示在教室正念情境中，動機因素可能凌駕於人格與依附特質之上。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">66名新加坡大學生（18-39歲）</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">課堂中進行的正念練習</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">不同課程與先前的正念經驗（統計控制）</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">正念練習的參與度、有用感與困難度（自我報告）</span></div>
+      </div>
+      <p class="utility-reason">💡 依附風格未達顯著預測效果，對依附臨床實務的直接啟示有限，但提醒正念介入應優先考量動機提升。</p>
+      <div class="card-footer">
+        <span class="tag">成人依附</span><span class="tag">心理治療</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42348562/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div></div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">📚</span>其他值得關注的文獻</div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🦷</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>超音波介導治療對牙菌斑附著與存活率的影響</h3>
+      <p class="journal-source">Ultrasound in Medicine & Biology</p>
+      <p>治療性超音波能有效移除變形鏈球菌生物膜，尤其與低濃度氯己定合併使用時可增強抗菌效果。</p>
+      <div class="card-footer">
+        
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42350196/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🐟</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>三種軟骨魚宿主上之Parabenedeniella posterocolpa重描述與系統發育分析</h3>
+      <p class="journal-source">The Journal of Parasitology</p>
+      <p>提出新屬Parabenedeniella以重新分類一種單殖吸蟲，並探討其宿主特異性。</p>
+      <div class="card-footer">
+        
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42349875/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">💊</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>Ondansetron體外與體內顯示對腸病毒71型感染的強效抗病毒活性</h3>
+      <p class="journal-source">Virus Research</p>
+      <p>止吐藥Ondansetron透過調節膽固醇代謝干擾病毒附著，可作為治療腸病毒71型的老藥新用候選。</p>
+      <div class="card-footer">
+        
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42349797/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🌱</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>SNARE基因CwSYP121透過調節囊泡運輸增強藍雪花鈣分泌與鈣耐受性</h3>
+      <p class="journal-source">Plant Science</p>
+      <p>CwSYP121作為質膜定位的Qa-SNARE蛋白，透過促進鈣離子外流與抗氧化酶活性增強植物高鈣環境適應力。</p>
+      <div class="card-footer">
+        
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42349690/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🦵</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>膝關節內側半月板前角韌帶：病例報告與文獻回顧</h3>
+      <p class="journal-source">BMC Musculoskeletal Disorders</p>
+      <p>報告兩例罕見的前內側半月板股骨韌帶變異，探討其對半月板穩定性的影響及個別化治療策略。</p>
+      <div class="card-footer">
+        
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42337530/" target="_blank">PubMed →</a>
+      </div>
+    </div></div>
+
+  <div class="topic-section section"><div class="section-title"><span class="section-icon">📊</span>主題分佈</div>
+      <div class="topic-row">
+        <span class="topic-name">依附理論</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+        <span class="topic-count">3</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">成人依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+        <span class="topic-count">3</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">親職</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:67%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與創傷</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:67%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附焦慮</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:33%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附逃避</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:33%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">逃避依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:33%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">親密關係</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:33%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">嬰幼兒依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:33%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">照顧者敏感度</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:33%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與PTSD</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:33%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與情緒調節</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:33%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">心理治療</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:67%"></div></div>
+        <span class="topic-count">2</span>
+      </div></div>
+
+  <div class="keywords-section section"><div class="section-title"><span class="section-icon">🏷️</span>關鍵字</div><div class="keywords"><span class="keyword">初為人父母</span><span class="keyword">關係滿意度</span><span class="keyword">灰姑娘症候群</span><span class="keyword">科技與母職</span><span class="keyword">童年創傷</span><span class="keyword">PTSD後設分析</span><span class="keyword">情緒調節中介</span></div></div>
+
+  <div class="links-banner">
+    <a href="https://www.leepsyclinic.com/" class="link-card" target="_blank">
+      <span class="link-icon">🏥</span>
+      <span class="link-info">
+        <span class="link-name">李政洋身心診所首頁</span>
+        <span class="link-desc">專業身心科醫療服務</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+    <a href="https://blog.leepsyclinic.com/" class="link-card" target="_blank">
+      <span class="link-icon">📬</span>
+      <span class="link-info">
+        <span class="link-name">訂閱電子報</span>
+        <span class="link-desc">接收最新心理健康資訊</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+    <a href="https://buymeacoffee.com/CYlee" class="link-card coffee-card" target="_blank">
+      <span class="link-icon">☕</span>
+      <span class="link-info">
+        <span class="link-name">Buy Me a Coffee</span>
+        <span class="link-desc">支持我們繼續提供優質內容</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+  </div>
+
+  <footer>
+    <span>資料來源：PubMed &middot; 分析模型：glm-5-turbo</span>
+    <span><a href="https://github.com/u8901006/attachment-brain">GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
