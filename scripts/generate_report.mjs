@@ -3,9 +3,9 @@ import { writeFileSync, readFileSync, existsSync } from 'node:fs';
 import { mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 
-const API_BASE = process.env.ZHIPU_API_BASE || 'https://open.bigmodel.cn/api/coding/paas/v4';
-const MODELS = ['glm-5-turbo', 'glm-4.7', 'glm-4.7-flash'];
-const MAX_TOKENS = 100000;
+const API_BASE = 'https://integrate.api.nvidia.com/v1';
+const MODELS = ['nvidia/nemotron-3-super-120b-a12b', 'nvidia/nemotron-3-nano-30b-a3b'];
+const MAX_TOKENS = 16384;
 const TIMEOUT_MS = 660000;
 
 const SYSTEM_PROMPT = `你是依附關係（Attachment）領域的資深研究員與科學傳播者。你的任務是：
@@ -86,7 +86,7 @@ function robustJsonParse(text) {
   return null;
 }
 
-async function callZhipuAPI(apiKey, messages, model) {
+async function callNvidiaAPI(apiKey, messages, model) {
   const headers = {
     'Authorization': `Bearer ${apiKey}`,
     'Content-Type': 'application/json',
@@ -94,9 +94,11 @@ async function callZhipuAPI(apiKey, messages, model) {
   const payload = {
     model,
     messages,
-    temperature: 0.3,
-    top_p: 0.9,
+    temperature: 1.0,
+    top_p: 0.95,
     max_tokens: MAX_TOKENS,
+    stream: false,
+    chat_template_kwargs: { enable_thinking: false },
   };
 
   console.error(`[INFO] Calling ${model} with ${MAX_TOKENS} max_tokens, ${TIMEOUT_MS / 1000}s timeout...`);
@@ -191,7 +193,7 @@ ${papersText}
     for (let attempt = 0; attempt < 3; attempt++) {
       try {
         console.error(`[INFO] Trying ${model} (attempt ${attempt + 1})...`);
-        const rawText = await callZhipuAPI(apiKey, messages, model);
+        const rawText = await callNvidiaAPI(apiKey, messages, model);
         const result = robustJsonParse(rawText);
 
         if (result && (result.top_picks || result.all_papers)) {
@@ -388,7 +390,7 @@ function generateHtml(analysis) {
       <div class="header-meta">
         <span class="badge badge-date">📅 ${dateDisplay}</span>
         <span class="badge badge-count">📊 ${totalCount} 篇文獻</span>
-        <span class="badge badge-source">Powered by PubMed + Zhipu AI</span>
+        <span class="badge badge-source">Powered by PubMed + NVIDIA AI</span>
       </div>
     </div>
   </header>
@@ -444,10 +446,10 @@ function generateHtml(analysis) {
 
 async function main() {
   const opts = parseArgs();
-  const apiKey = process.env.ZHIPU_API_KEY || '';
+  const apiKey = process.env.NVIDIA_API_KEY || '';
 
   if (!apiKey) {
-    console.error('[ERROR] No API key. Set ZHIPU_API_KEY env var.');
+    console.error('[ERROR] No API key. Set NVIDIA_API_KEY env var.');
     process.exit(1);
   }
 
