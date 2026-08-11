@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Attachment Brain &middot; 依附關係文獻日報 &middot; 2026年8月11日</title>
+<meta name="description" content="2026年8月11日 依附關係文獻日報，由 AI 自動彙整 PubMed 最新論文"/>
+<style>
+  :root { --bg: #f6f1e8; --surface: #fffaf2; --line: #d8c5ab; --text: #2b2118; --muted: #766453; --accent: #8c4f2b; --accent-soft: #ead2bf; --card-bg: color-mix(in srgb, var(--surface) 92%, white); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(circle at top, #fff6ea 0, var(--bg) 55%, #ead8c6 100%); color: var(--text); font-family: "Noto Sans TC", "PingFang TC", "Helvetica Neue", Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 60px 32px 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 48px; height: 48px; border-radius: 14px; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 20px rgba(140,79,43,0.25); }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .header-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.3px; }
+  .badge-date { background: var(--accent-soft); border: 1px solid var(--line); color: var(--accent); }
+  .badge-count { background: rgba(140,79,43,0.06); border: 1px solid var(--line); color: var(--muted); }
+  .badge-source { background: transparent; color: var(--muted); font-size: 11px; padding: 0 4px; }
+  .summary-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px 32px; margin-bottom: 32px; box-shadow: 0 20px 60px rgba(61,36,15,0.06); animation: fadeUp 0.5s ease 0.1s both; }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--accent); margin-bottom: 16px; }
+  .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .section-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; background: var(--accent-soft); }
+  .news-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 22px 26px; margin-bottom: 12px; box-shadow: 0 8px 30px rgba(61,36,15,0.04); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .news-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .news-card.featured { border-left: 3px solid var(--accent); }
+  .news-card.featured:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .rank-badge { background: var(--accent); color: #fff7f0; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .emoji-icon { font-size: 18px; }
+  .card-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .emoji-sm { font-size: 14px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .journal-source { font-size: 12px; color: var(--accent); margin-bottom: 8px; opacity: 0.8; }
+  .news-card p { font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .utility-reason { font-size: 12px !important; color: var(--accent) !important; opacity: 0.85; margin-top: 4px; }
+  .card-footer { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { padding: 2px 9px; background: var(--accent-soft); border-radius: 999px; font-size: 11px; color: var(--accent); }
+  .news-card a { font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0.7; margin-left: auto; }
+  .news-card a:hover { opacity: 1; }
+  .utility-high { color: #5a7a3a; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(90,122,58,0.1); border-radius: 4px; }
+  .utility-mid { color: #9f7a2e; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(159,122,46,0.1); border-radius: 4px; }
+  .utility-low { color: var(--muted); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(118,100,83,0.08); border-radius: 4px; }
+  .utility-sm { font-size: 10px; }
+  .pico-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(255,253,249,0.8); border-radius: 14px; border: 1px solid var(--line); }
+  .pico-item { display: flex; gap: 8px; align-items: baseline; }
+  .pico-label { font-size: 10px; font-weight: 700; color: #fff7f0; background: var(--accent); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .pico-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .keywords-section { margin-bottom: 36px; }
+  .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .keyword { padding: 5px 14px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; font-size: 12px; color: var(--accent); cursor: default; transition: background 0.2s; }
+  .keyword:hover { background: rgba(140,79,43,0.18); }
+  .topic-section { margin-bottom: 36px; }
+  .topic-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .topic-name { font-size: 13px; color: var(--muted); width: 110px; flex-shrink: 0; text-align: right; }
+  .topic-bar-bg { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .topic-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #c47a4a); border-radius: 4px; transition: width 0.6s ease; }
+  .topic-count { font-size: 12px; color: var(--accent); width: 24px; }
+  .links-banner { margin-top: 48px; display: flex; flex-direction: column; gap: 12px; animation: fadeUp 0.5s ease 0.4s both; }
+  .link-card { display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; text-decoration: none; color: var(--text); transition: all 0.2s; box-shadow: 0 8px 30px rgba(61,36,15,0.04); }
+  .link-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .link-icon { font-size: 28px; flex-shrink: 0; }
+  .link-info { flex: 1; }
+  .link-name { font-size: 15px; font-weight: 700; color: var(--text); }
+  .link-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .link-arrow { font-size: 18px; color: var(--accent); font-weight: 700; }
+  .coffee-card { background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%); border-color: #f59e0b40; }
+  footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; animation: fadeUp 0.5s ease 0.5s both; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) { .container { padding: 36px 18px 60px; } .summary-card, .news-card { padding: 20px 18px; } .pico-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 6px; text-align: center; } .topic-name { width: 80px; font-size: 11px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">🔗</div>
+    <div class="header-text">
+      <h1>Attachment Brain &middot; 依附關係文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">📅 2026年8月11日</span>
+        <span class="badge badge-count">📊 15 篇文獻</span>
+        <span class="badge badge-source">Powered by PubMed + NVIDIA AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日文獻趨勢</h2>
+    <p class="summary-text">今日文獻聚焦於依附安全感與心理健康的關聯，特別是成人依附不安全如何透過自我同情恐懼影響情緒調節與憂鬱症狀，並顯示情緒聚焦伴侶療法在成癮伴侶關係中的治療潛力，顯示依附理論在臨床干預中的整合趨勢。</p>
+  </div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">⭐</span>今日精選 TOP Picks</div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#1</span>
+        <span class="emoji-icon">🧓💭</span>
+        <span class="utility-high">高實用性</span>
+      </div>
+      <h3>依附不安全透過自我同情恐懼影響老年人心理適應的縱向研究</h3>
+      <p class="journal-source">Psychology and psychotherapy &middot; Attachment insecurity and psychological (mal)adjustment in older adults: The longitudinal role of fear of self-compassion.</p>
+      <p>研究證實老年人的依附焦慮與回避會透過增加對自我同情的恐懼，導致長期 depressives症狀增加與生活品質下降，即使控制負面生活事件後效應仍顯著。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">147位葡萄牙社區居住的老年人（平均年齡未明確標註，但屬老年族群）</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無（觀察性縱向研究）</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">依附安全 vs 依附不安全（焦慮與回避維度）</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">依附焦慮與回避透過恐懼自我同情完全中介增加 depressives症狀；依附焦慮透過恐懼自我同情部分中介降低生活品質</span></div>
+      </div>
+      <p class="utility-reason">💡 揭示依附不安全透過自我同情恐懼影響老年人憂鬱與生活品質的機制，為針對老年團體的自我同情導向干預提供理論基礎。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">成人依附</span><span class="tag">依附焦慮</span><span class="tag">依附逃避</span><span class="tag">依附與憂鬱症</span><span class="tag">依附與情緒調節</span><span class="tag">心理治療</span><span class="tag">老年心理</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/41906270/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#2</span>
+        <span class="emoji-icon">💑💔</span>
+        <span class="utility-high">高實用性</span>
+      </div>
+      <h3>情緒聚焦伴侶療法對受成癮影響伊朗夫妻婚姻親密度與功能的提升效果</h3>
+      <p class="journal-source">Journal of ethnicity in substance abuse &middot; Effectiveness of Emotionally Focused Couple Therapy in enhancing marital intimacy and marital functioning among Iranian couples affected by addiction.</p>
+      <p>八次情緒聚焦伴侶療法（EFCT）顯著提升受成癮影響伊朗夫妻的婚姻親密度與整體功能，透過強化情感連結、安全依附與情緒回應性來重建互動模式。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">20對受成癮影響、尋求德黑蘭諮詢診所服務的伊朗夫妻</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">實驗組：八次90分鐘的情緒聚焦伴侶療法（EFCT）</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">對照組：無干預</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">實驗組婚姻親密度（Marital Intimacy Scale）與婚姻功能（Dyadic Adjustment Scale, DAS）顯著提升</span></div>
+      </div>
+      <p class="utility-reason">💡 證實EFCT在特定文化與成癮 comorbidity 人群中的有效性，支持將依附導向療法整合進成癮治療與家庭諮詢。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">成人依附</span><span class="tag">伴侶治療</span><span class="tag">婚姻品質</span><span class="tag">情緒聚焦治療</span><span class="tag">依附與成癮</span><span class="tag">心理治療</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42574762/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#3</span>
+        <span class="emoji-icon">🧠🔗</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>依附不安全與精神病症狀陰性症狀的關聯：系統性文獻回顧與元分析</h3>
+      <p class="journal-source">Psychology and psychotherapy &middot; The association between attachment insecurity and negative symptoms in clinical and non-clinical populations: A systematic review and meta-analysis.</p>
+      <p>元分析發現依附焦慮在臨床與非臨床樣本中與陰性症狀有小但顯著正相關；依附回避僅在非臨床樣本中呈中等級顯著相關，提示依附維度對精神病症狀的影響具情境特異性。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">22項研究，總計6507名參與者（平均年齡27.76歲，35.1%男性），包括臨床（k=14）與非臨床（k=9）樣本</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無（系統性文獻回顧與元分析）</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">依附安全 vs 依附不安全（焦慮與回避維度）</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">依附焦慮與總體陰性症狀呈小但顯著正相關（r ≈ 0.10–0.20）；依附回避在非臨床樣本中與陰性症狀呈中等相關（r ≈ 0.30）</span></div>
+      </div>
+      <p class="utility-reason">💡 提供依附不安全與精神病陰性症狀之間關聯的最佳證據，提醒臨床師在評估精神病症狀時考慮依附史，但機制尚需進一步闡釋。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">成人依附</span><span class="tag">依附焦慮</span><span class="tag">依附逃避</span><span class="tag">依附與PTSD</span><span class="tag">依附與創傷</span><span class="tag">精神病</span><span class="tag">系統性文獻回顧</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/41883091/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#4</span>
+        <span class="emoji-icon">🌍💔</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>阿富汗難民的依附相關創傷標記與心理症狀嚴重程度的關聯</h3>
+      <p class="journal-source">BJPsych open &middot; Attachment-related trauma markers and symptom severity in Afghan refugees.</p>
+      <p>未解決的依附表達與較高的敘事性創傷標記頻率相關，而該標記頻率與 depressives症狀與整體心理困擾呈中等程度正相關（r = 0.40–0.51），但不與創傷後壓力症狀嚴重度相關。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">40名接受門診心理治療的阿富汗難民（平均年齡25.4歲，75%男性）</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無（橫斷式探索性研究）</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">已解決 vs 未解決的依附表達（經Adult Attachment Projective Picture System評估）</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">未解決依附組創傷標記頻率顯著較高；標記頻率與 depressives症狀與心理困擾正相關（r = 0.40–0.51），PTSD症狀無關聯</span></div>
+      </div>
+      <p class="utility-reason">💡 突顯敘事性依附評估在文化脈絡中捕捉非PTSD導向之憂鬱與心理負荷的價值，特別適用於無法明確報告症狀的難民群體。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">成人依附</span><span class="tag">依附與創傷</span><span class="tag">依附與憂鬱症</span><span class="tag">依附與解離</span><span class="tag">跨文化心理</span><span class="tag">難民心理健康</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42572350/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#5</span>
+        <span class="emoji-icon">🤖👵</span>
+        <span class="utility-low">低實用性</span>
+      </div>
+      <h3>老年人對社會協助機器人預期情感依附的質化研究：文化脈絡下的孤獨與照顧需求</h3>
+      <p class="journal-source">Nursing & health sciences &middot; Exploring Emotional Attachment to Socially Assistive Robots: A Qualitative Study Among Older Adults.</p>
+      <p>中國老年人因孤獨、家庭支持不足及擬人化投射而預期對社會協助機器人產生情感依附，但同時擔憂其可能削弱家庭關係與個人自主性，反映出照顧缺口與倫理張力。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">中國社區居住的老年人（樣本數未在摘要中明確）</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無（基於情境的半結構式質化訪談）</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無對照組（探索性預期態度研究）</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">三個主題：預期情感依附、催化因素（孤獨、家庭支持不足、擬人化）、預期後果（情感支持 vs 家庭關係與自主性擔憂）</span></div>
+      </div>
+      <p class="utility-reason">💡 雖未直接臨床干預，但為社會機器人在長照中的倫理實施提供關鍵文化脈絡洞見，提醒技術應補而不取代人類照顧。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">成人依附</span><span class="tag">依附與孤獨</span><span class="tag">照顧者敏感度</span><span class="tag">科技與依附</span><span class="tag">長期照護</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42575723/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div></div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">📚</span>其他值得關注的文獻</div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">💑💔</span>
+        <span class="utility-high utility-sm">高</span>
+      </div>
+      <h3>情緒聚焦夫妻療法對提升伊朗受成癮影響夫妻婚姻親密度與功能的效果</h3>
+      <p class="journal-source">Journal of ethnicity in substance abuse</p>
+      <p>八次情緒聚焦伴侶療法顯著提升受成癮影響伊朗夫妻的婚姻親密度與整體功能，透過強化情感連結、安全依附與情緒回應性來重建互動模式。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">成人依附</span><span class="tag">伴侶治療</span><span class="tag">婚姻品質</span><span class="tag">情緒聚焦治療</span><span class="tag">依附與成癮</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42574762/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🧓💭</span>
+        <span class="utility-high utility-sm">高</span>
+      </div>
+      <h3>依附不安全透過自我同情恐懼影響老年人心理適應的縱向研究</h3>
+      <p class="journal-source">Psychology and psychotherapy</p>
+      <p>研究證實老年人的依附焦慮與回避會透過增加對自我同情的恐懼，導致長期 depressives症狀增加與生活品質下降，即使控制負面生活事件後效應仍顯著。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">成人依附</span><span class="tag">依附焦慮</span><span class="tag">依附逃避</span><span class="tag">依附與憂鬱症</span><span class="tag">依附與情緒調節</span><span class="tag">心理治療</span><span class="tag">老年心理</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/41906270/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🧠🔗</span>
+        <span class="utility-mid utility-sm">中</span>
+      </div>
+      <h3>依附不安全與精神病症狀陰性症狀的關聯：系統性文獻回顧與元分析</h3>
+      <p class="journal-source">Psychology and psychotherapy</p>
+      <p>元分析發現依附焦慮在臨床與非臨床樣本中與陰性症狀有小但顯著正相關；依附回避僅在非臨床樣本中呈中等級顯著相關，提示依附維度對精神病症狀的影響具情境特異性。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">成人依附</span><span class="tag">依附焦慮</span><span class="tag">依附逃避</span><span class="tag">依附與PTSD</span><span class="tag">依附與創傷</span><span class="tag">精神病</span><span class="tag">系統性文獻回顧</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/41883091/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🌍💔</span>
+        <span class="utility-mid utility-sm">中</span>
+      </div>
+      <h3>阿富汗難民的依附相關創傷標記與心理症狀嚴重程度的關聯</h3>
+      <p class="journal-source">BJPsych open</p>
+      <p>未解決的依附表達與較高的敘事性創傷標記頻率相關，而該標記頻率與 depressives症狀與整體心理困擾呈中等程度正相關（r = 0.40–0.51），但不與創傷後壓力症狀嚴重度相關。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">成人依附</span><span class="tag">依附與創傷</span><span class="tag">依附與憂鬱症</span><span class="tag">依附與解離</span><span class="tag">跨文化心理</span><span class="tag">難民心理健康</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42572350/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🤖👵</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>老年人對社會協助機器人預期情感依附的質化研究：文化脈絡下的孤獨與照顧需求</h3>
+      <p class="journal-source">Nursing & health sciences</p>
+      <p>中國老年人因孤獨、家庭支持不足及擬人化投射而預期對社會協助機器人產生情感依附，但同時擔憂其可能削弱家庭關係與個人自主性，反映出照顧缺口與倫理張力。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">成人依附</span><span class="tag">依附與孤獨</span><span class="tag">照顧者敏感度</span><span class="tag">科技與依附</span><span class="tag">長期照護</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42575723/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">👁️🔬</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>Dextran去水化對DMEK手術移植片準備與臨床結果的影響</h3>
+      <p class="journal-source">Cell and tissue banking</p>
+      <p>視帝氏膜內皮角膜移植術（DMEK）中，含dextran與不含dextan的器官培養基在移植片製備特徵或12個月術後視力、中央角膜厚度、內皮細胞密度或氣泡復發率上無顯著差異。</p>
+      <div class="card-footer">
+        <span class="tag">眼科</span><span class="tag">角膜移植</span><span class="tag">生物材料</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42573851/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🔬💊</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>奈米酶的功能化：精準靶向癌症治療的新策略</h3>
+      <p class="journal-source">ACS biomaterials science & engineering</p>
+      <p>透過共价或非共价修飾肽、聚合物或適配體來增強奈米酶的催化效率、靶向特異性與生物相容性，同時響應腫瘤微環境（pH、GSH、H₂O₂）以降低全身毒性，是提升奈米酶在癌症治療應用的關鍵策略。</p>
+      <div class="card-footer">
+        <span class="tag">奈米科技</span><span class="tag">癌症治療</span><span class="tag">藥物輸送</span><span class="tag">生物醫材</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42573489/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🩹🧬</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>透過解離-穩定策略電紡製定向蛋白奈米纖維以減少疤痕形成：平衡收縮與再生</h3>
+      <p class="journal-source">ACS biomaterials science & engineering</p>
+      <p>定向牛血清白蛋白纖維膜（OBFM）透過促進皮膚細胞附著與對齊、抑制α-SMA表達來減少早期傷口收縮（~48%）並加速後期傷口閉合（~69%），同時降低纖維母細胞轉分化，是減少疤痕的有望敷料。</p>
+      <div class="card-footer">
+        <span class="tag">傷口癒合</span><span class="tag">疤痕預防</span><span class="tag">生物醫材</span><span class="tag">電紡技術</span><span class="tag">蛋白質工程</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42573485/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">📱👨‍👩‍👧</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>青少年對父母線上與日常行為監控的信念：隱私與安全的張力</h3>
+      <p class="journal-source">Journal of adolescence</p>
+      <p>晚青少年認為父母對日常行為的監控比線上行為更被接受且合理，但線上監控被視為隱私侵犯而非促進成長，顯示其在自主性、隱私與 parental責任間的衝突。</p>
+      <div class="card-footer">
+        <span class="tag">青少年心理</span><span class="tag">親職</span><span class="tag">數位育兒</span><span class="tag">親子關係</span><span class="tag">隱私</span><span class="tag">自主性</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42572984/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">💧🔬</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>病原體經飽和多孔岩石在變異流速與鹽度下的傳輸行為</h3>
+      <p class="journal-source">Journal of contaminant hydrology</p>
+      <p>沉積性多孔岩石（含方解石）即使無裂縫亦可透過附著/脫離與過濾機制使大腸桿菌與腸球菌移動，且其遷移量隨鹽度下降而增加，挑戰多孔岩石為地下水保護層的假設。</p>
+      <div class="card-footer">
+        <span class="tag">環境微生物學</span><span class="tag">水文地質</span><span class="tag">病原體傳輸</span><span class="tag">多孔介質</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42574768/" target="_blank">PubMed →</a>
+      </div>
+    </div></div>
+
+  <div class="topic-section section"><div class="section-title"><span class="section-icon">📊</span>主題分佈</div>
+      <div class="topic-row">
+        <span class="topic-name">依附理論</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+        <span class="topic-count">8</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">成人依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:75%"></div></div>
+        <span class="topic-count">6</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附焦慮</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:38%"></div></div>
+        <span class="topic-count">3</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附逃避</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:38%"></div></div>
+        <span class="topic-count">3</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與憂鬱症</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:50%"></div></div>
+        <span class="topic-count">4</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與情緒調節</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">伴侶治療</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">婚姻品質</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">情緒聚焦治療</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與成癮</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與創傷</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與孤獨</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+        <span class="topic-count">2</span>
+      </div></div>
+
+  <div class="keywords-section section"><div class="section-title"><span class="section-icon">🏷️</span>關鍵字</div><div class="keywords"><span class="keyword">依附不安全</span><span class="keyword">自我同情</span><span class="keyword">情緒聚焦療法</span><span class="keyword">成癮伴侶關係</span><span class="keyword">老年心理</span><span class="keyword">難民創傷</span><span class="keyword">社會機器人</span></div></div>
+
+  <div class="links-banner">
+    <a href="https://www.leepsyclinic.com/" class="link-card" target="_blank">
+      <span class="link-icon">🏥</span>
+      <span class="link-info">
+        <span class="link-name">李政洋身心診所首頁</span>
+        <span class="link-desc">專業身心科醫療服務</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+    <a href="https://blog.leepsyclinic.com/" class="link-card" target="_blank">
+      <span class="link-icon">📬</span>
+      <span class="link-info">
+        <span class="link-name">訂閱電子報</span>
+        <span class="link-desc">接收最新心理健康資訊</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+    <a href="https://buymeacoffee.com/CYlee" class="link-card coffee-card" target="_blank">
+      <span class="link-icon">☕</span>
+      <span class="link-info">
+        <span class="link-name">Buy Me a Coffee</span>
+        <span class="link-desc">支持我們繼續提供優質內容</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+  </div>
+
+  <footer>
+    <span>資料來源：PubMed &middot; 分析模型：nvidia/nemotron-3-super-120b-a12b</span>
+    <span><a href="https://github.com/u8901006/attachment-brain">GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
