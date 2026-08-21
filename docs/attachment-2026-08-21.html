@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Attachment Brain &middot; 依附關係文獻日報 &middot; 2026年8月21日</title>
+<meta name="description" content="2026年8月21日 依附關係文獻日報，由 AI 自動彙整 PubMed 最新論文"/>
+<style>
+  :root { --bg: #f6f1e8; --surface: #fffaf2; --line: #d8c5ab; --text: #2b2118; --muted: #766453; --accent: #8c4f2b; --accent-soft: #ead2bf; --card-bg: color-mix(in srgb, var(--surface) 92%, white); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(circle at top, #fff6ea 0, var(--bg) 55%, #ead8c6 100%); color: var(--text); font-family: "Noto Sans TC", "PingFang TC", "Helvetica Neue", Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 60px 32px 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 48px; height: 48px; border-radius: 14px; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 20px rgba(140,79,43,0.25); }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .header-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.3px; }
+  .badge-date { background: var(--accent-soft); border: 1px solid var(--line); color: var(--accent); }
+  .badge-count { background: rgba(140,79,43,0.06); border: 1px solid var(--line); color: var(--muted); }
+  .badge-source { background: transparent; color: var(--muted); font-size: 11px; padding: 0 4px; }
+  .summary-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px 32px; margin-bottom: 32px; box-shadow: 0 20px 60px rgba(61,36,15,0.06); animation: fadeUp 0.5s ease 0.1s both; }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--accent); margin-bottom: 16px; }
+  .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .section-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; background: var(--accent-soft); }
+  .news-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 22px 26px; margin-bottom: 12px; box-shadow: 0 8px 30px rgba(61,36,15,0.04); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .news-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .news-card.featured { border-left: 3px solid var(--accent); }
+  .news-card.featured:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .rank-badge { background: var(--accent); color: #fff7f0; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .emoji-icon { font-size: 18px; }
+  .card-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .emoji-sm { font-size: 14px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .journal-source { font-size: 12px; color: var(--accent); margin-bottom: 8px; opacity: 0.8; }
+  .news-card p { font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .utility-reason { font-size: 12px !important; color: var(--accent) !important; opacity: 0.85; margin-top: 4px; }
+  .card-footer { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { padding: 2px 9px; background: var(--accent-soft); border-radius: 999px; font-size: 11px; color: var(--accent); }
+  .news-card a { font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0.7; margin-left: auto; }
+  .news-card a:hover { opacity: 1; }
+  .utility-high { color: #5a7a3a; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(90,122,58,0.1); border-radius: 4px; }
+  .utility-mid { color: #9f7a2e; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(159,122,46,0.1); border-radius: 4px; }
+  .utility-low { color: var(--muted); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(118,100,83,0.08); border-radius: 4px; }
+  .utility-sm { font-size: 10px; }
+  .pico-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(255,253,249,0.8); border-radius: 14px; border: 1px solid var(--line); }
+  .pico-item { display: flex; gap: 8px; align-items: baseline; }
+  .pico-label { font-size: 10px; font-weight: 700; color: #fff7f0; background: var(--accent); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .pico-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .keywords-section { margin-bottom: 36px; }
+  .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .keyword { padding: 5px 14px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; font-size: 12px; color: var(--accent); cursor: default; transition: background 0.2s; }
+  .keyword:hover { background: rgba(140,79,43,0.18); }
+  .topic-section { margin-bottom: 36px; }
+  .topic-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .topic-name { font-size: 13px; color: var(--muted); width: 110px; flex-shrink: 0; text-align: right; }
+  .topic-bar-bg { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .topic-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #c47a4a); border-radius: 4px; transition: width 0.6s ease; }
+  .topic-count { font-size: 12px; color: var(--accent); width: 24px; }
+  .links-banner { margin-top: 48px; display: flex; flex-direction: column; gap: 12px; animation: fadeUp 0.5s ease 0.4s both; }
+  .link-card { display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; text-decoration: none; color: var(--text); transition: all 0.2s; box-shadow: 0 8px 30px rgba(61,36,15,0.04); }
+  .link-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .link-icon { font-size: 28px; flex-shrink: 0; }
+  .link-info { flex: 1; }
+  .link-name { font-size: 15px; font-weight: 700; color: var(--text); }
+  .link-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .link-arrow { font-size: 18px; color: var(--accent); font-weight: 700; }
+  .coffee-card { background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%); border-color: #f59e0b40; }
+  footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; animation: fadeUp 0.5s ease 0.5s both; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) { .container { padding: 36px 18px 60px; } .summary-card, .news-card { padding: 20px 18px; } .pico-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 6px; text-align: center; } .topic-name { width: 80px; font-size: 11px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">🔗</div>
+    <div class="header-text">
+      <h1>Attachment Brain &middot; 依附關係文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">📅 2026年8月21日</span>
+        <span class="badge badge-count">📊 14 篇文獻</span>
+        <span class="badge badge-source">Powered by PubMed + NVIDIA AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日文獻趨勢</h2>
+    <p class="summary-text">最新文獻聚焦於依附相關機制與行為動態、情緒調節與精神健康的關聯，並有少數領域突破如細胞農業與食品安全的技術進展。</p>
+  </div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">⭐</span>今日精選 TOP Picks</div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#1</span>
+        <span class="emoji-icon">📈</span>
+        <span class="utility-high">高實用性</span>
+      </div>
+      <h3>依附不安全與憂鬱症狀的循環機制：狀態憂鬱、依附焦慮與社交情緒調節之間的動態關係</h3>
+      <p class="journal-source">Emotion (Washington, D.C.) &middot; Unraveling the cycle of depression: Dynamics of state depression, state attachment, and social emotion regulation among psychiatric patients</p>
+      <p>透過體驗抽樣捕捉精神病患者的狀態抑鬱、依附焦慮與社交情緒調節的即時變化，發現抑鬱症狀與依附焦慮會形成相互強化的循環，且社交分享可瞬間降低抑鬱症狀。研究提供了打破抑鬱循環的介入依據，顯示依附不安全與情緒調節不良是關鍵焦點。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">診斷有憂鬱或焦慮障礙的精神病患者 (N=205)</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">經驗抽樣法測量狀態抑鬱、依附安全性、社交情緒調節 (10天內3次/天)</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無此測量或傳統回憶問卷的比較</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">抑鬱狀態與依附焦慮相互強化形成循環；社交分享可瞬間減少抑鬱狀態</span></div>
+      </div>
+      <p class="utility-reason">💡 為臨床介入抑鬱、改善依附相關問題提供直接的動態證據與可操作的評估框架。</p>
+      <div class="card-footer">
+        <span class="tag">依附與憂鬱症</span><span class="tag">情緒調節</span><span class="tag">依附焦慮</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/41885910/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#2</span>
+        <span class="emoji-icon">👤</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>父性接受-拒絕的回憶與成人依附不安全：跨國比較研究</h3>
+      <p class="journal-source">The Journal of genetic psychology &middot; Recalled Paternal Acceptance‑Rejection and Attachment Insecurity: Evidence from Spain, Italy, and Ecuador</p>
+      <p>在西班牙、義大利與厄瓜多爾的成人樣本中，回憶父親的接受度低與拒絕度高與較低的安全依附、較高的親密不安、對接納需求及過度關係先行性有顯著正相關，且未因國家差異而顯著改變。該研究證實父親角色在成人依附的形成中具有獨特影響，提供了將父親關係納入依附範疇的實證支持。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">西班牙、義大利、厄瓜多爾共計 286 成人</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">使用父親接受-拒絕問卷與成人依附樣式問卷測量</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">對照組未使用父親相關測量或僅使用母親/全域問卷</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">父親拒絕度高者在安全感、親密感及關係先行性維度上得分更低；父親拒絕為預測依附不安全的最重要變項。</span></div>
+      </div>
+      <p class="utility-reason">💡 提醒臨床師在評估成人依附時，應納入對父親的回憶與關係考量，提供設計更完整親子相關介入的基礎。</p>
+      <div class="card-footer">
+        <span class="tag">成人依附</span><span class="tag">依附與情緒調節</span><span class="tag">親職</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42619420/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#3</span>
+        <span class="emoji-icon">🦷</span>
+        <span class="utility-high">高實用性</span>
+      </div>
+      <h3>應對嚴重窪縫缺的分期再生療法：可組織結缔組織塊壁技術結合生物活性支架</h3>
+      <p class="journal-source">Clinical advances in periodontics &middot; Sequential regenerative therapy using biologic‑based regeneration and connective tissue graft wall technique for a severe infrabony defect</p>
+      <p>報告一例 47 歲女性嚴重窪縫缺經分期 GTR 後加上結缔組織移植塊壁與再生技術的成功治療，顯示在保留牙齒、提升骨與軟組織再生方面具有可行性。此程序可作為對類似深窪缺損患者的治療模型。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">47 歲女性，嚴重窪縫缺伴龈縮退</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">第一階段微創移植物與 rhBMP‑2 增強 GTR；第二階段使用 CTG 塊壁與漸進漸進性填充</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">傳統單期 GTR 手術</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">牙周袋深度下降 8→3 mm、臨床附著增 5 mm、X‑ray 骨填充與牙根覆蓋 1.8 mm，且無疼痛或功能障礙。</span></div>
+      </div>
+      <p class="utility-reason">💡 提供一個具可行性且可複製的分期再生流程，可降低手術風險、提升患者保留率。</p>
+      <div class="card-footer">
+        <span class="tag">親職</span><span class="tag">親密關係</span><span class="tag">治療聯盟</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42622105/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#4</span>
+        <span class="emoji-icon">🔬</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>ポリカプレートン支架的層級多孔性 3D 列印技術：骨組織工程的新框架</h3>
+      <p class="journal-source">ACS biomaterials science & engineering &middot; Three‑Dimensional Printing of Polycaprolactone Scaffolds with Multiscale Porosity for Bone Tissue Engineering</p>
+      <p>利用糖類顆粒作為溶解性支原體，在 PCL 墊體中創建 10 μm 级别的層級多孔結構，顯著提升濕潤性、蛋白質吸附與降解速率，並增強骨前 osteoblast 附著與礦化作用。此簡易方法可廣泛應用於患者個別化骨缺损修復。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">體外 osteoblast 前細胞 (pre‑osteoblast) 及動物實驗</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">加入可溶性糖粒製備多孔 PCL 塊體</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無顆粒加入的純 PCL 塊體</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">多孔塊體在 3 天內骨前細胞附著提升 3 倍、降解速率提升 5 倍、機械性能可調。</span></div>
+      </div>
+      <p class="utility-reason">💡 為骨科再生醫學的支架設計提供可直接應用於患者特異性手術的技術基礎。</p>
+      <div class="card-footer">
+        <span class="tag">依附與創傷</span><span class="tag">依附與解離</span><span class="tag">神經生物學</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42619584/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#5</span>
+        <span class="emoji-icon">🧪</span>
+        <span class="utility-low">低實用性</span>
+      </div>
+      <h3>終端消毒的食品等級塗層技術：適應水質差異的細胞農業可行性</h3>
+      <p class="journal-source">Biotechnology reports (Amsterdam, Netherlands) &middot; Terminal sterilization of food‑grade coatings for cellular agriculture: robustness against water quality and regulatory feasibility</p>
+      <p>提出 iCoater 這種經過終端熱消毒製成的食品等級塗層，對多種水質範圍（軟至硬）均保持無菌、低內毒素與 12 個月穩定性，並驗證其在鴨肝細胞培養中的附著與增殖效能，為日本法規下的細胞農業提供可標示「發酵食品」的合規路徑。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">實驗室培養的鴨肝衍生細胞</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">終端熱消毒製作食品等級塗層（iCoater）</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">未使用此塗層或使用其他過濾方式</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">在硬度 0.0‑1468 mg/L 的水中均維持無菌、低內毒素及長期穩定性，細胞附著與增殖率提升。</span></div>
+      </div>
+      <p class="utility-reason">💡 雖屬於非臨床領域，但對未來人體營養療法與食品安全有重要意涵，僅在科技前瞻性層面有價值。</p>
+      <div class="card-footer">
+        <span class="tag">依附與焦慮症</span><span class="tag">依附與溶脂酶</span><span class="tag">催產素</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42620750/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#6</span>
+        <span class="emoji-icon">🦠</span>
+        <span class="utility-low">低實用性</span>
+      </div>
+      <h3>病毒感染的宿主代謝依賴性：代謝狀態對吸附率的調控機制</h3>
+      <p class="journal-source">eLife &middot; Viral commitment to infection depends on host metabolism</p>
+      <p>在能量受限的條件下，五種大腸桿菌噬菌劑的吸附率顯著下降，較弱結合的噬菌劑更為敏感，顯示宿主代謝狀態可調節病毒感染的承諾度，提供新視角了解病毒‑宿主互作與潛在抗病毒策略。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">E. coli 及其五種噬菌劑</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">在不同代謝條件下測量吸附率 (&#x3b7;)</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">不同代謝狀態下的吸附差異</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">能量受限時吸附率下降，弱結合噬菌劑更顯著降低；提示病毒可因宿主代謝而降低致命性。</span></div>
+      </div>
+      <p class="utility-reason">💡 雖屬基礎科學，但對病毒傳播機制與代謝相關治療提供基礎理論。</p>
+      <div class="card-footer">
+        <span class="tag">依附神經生物學</span><span class="tag">神經傳導</span><span class="tag">心理治療</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42622628/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#7</span>
+        <span class="emoji-icon">🧬</span>
+        <span class="utility-low">低實用性</span>
+      </div>
+      <h3>2,4‑二氯‑5‑硝基嘧啶的負態與解離電附著通路：對放射增敏的計算探討</h3>
+      <p class="journal-source">The journal of physical chemistry. A &middot; Anion States and Dissociation Pathways of the Universal Radiosensitizer Model 2,4‑Dichloro‑5‑nitropyrimidine</p>
+      <p>使用量子化學計算揭示 2,4‑二氯‑5‑硝基嘧啶在低能電子作用下形成多個形態態固有態與共振態，主要解離通路由 &#x3c0;3* 狀態驅動，可作為放射增敏劑的設計依據，對同時化學與放射治療的協同作用有啟示。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">計算模型</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">低能電子附著與解離路徑解析</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">傳統實驗測定</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">發現兩個結合態與三個形態態共振，最關鍵的解離源自 &#x3c0;3*，可用於設計更有效的放射增敏化合物。</span></div>
+      </div>
+      <p class="utility-reason">💡 屬於物理化學領域，對臨床放射治療的直接影響有限，但對劑量優化提供理論參考。</p>
+      <div class="card-footer">
+        <span class="tag">依附與創傷</span><span class="tag">解離</span><span class="tag">神經傳導</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42622325/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div></div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">📚</span>其他值得關注的文獻</div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">📈</span>
+        <span class="utility-high utility-sm">高</span>
+      </div>
+      <h3>Unraveling the cycle of depression: Dynamics of state depression, state attachment, and social emotion regulation among psychiatric patients</h3>
+      <p class="journal-source">Emotion (Washington, D.C.)</p>
+      <p>一句話總結：透過體驗抽樣捕捉精神病患者的狀態抑鬱、依附焦慮與社交情緒調節的即時變化，發現抑鬱症狀與依附焦慮會形成相互強化的循環，且社交分享可瞬間降低抑鬱症狀。</p>
+      <div class="card-footer">
+        <span class="tag">依附與憂鬱症</span><span class="tag">情緒調節</span><span class="tag">依附焦慮</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/41885910/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">👤</span>
+        <span class="utility-mid utility-sm">中</span>
+      </div>
+      <h3>Recalled Paternal Acceptance-Rejection and Attachment Insecurity: Evidence from Spain, Italy, and Ecuador</h3>
+      <p class="journal-source">The Journal of genetic psychology</p>
+      <p>一句話總結：在西班牙、義大利與厄瓜多爾的成人樣本中，回憶父親的接受度低與拒絕度高與較低的安全依附、較高的親密不安、對接納需求及過度關係先行性有顯著正相關，且未因國家差異而顯著改變。</p>
+      <div class="card-footer">
+        <span class="tag">成人依附</span><span class="tag">依附與情緒調節</span><span class="tag">親職</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42619420/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🦷</span>
+        <span class="utility-high utility-sm">高</span>
+      </div>
+      <h3>Sequential regenerative therapy using biologic‑based regeneration and connective tissue graft wall technique for a severe infrabony defect</h3>
+      <p class="journal-source">Clinical advances in periodontics</p>
+      <p>一句話總結：報告一例 47 歲女性嚴重窪縫缺經分期 GTR 後加上結缔組織移植塊壁與再生技術的成功治療，顯示在保留牙齒、提升骨與軟組織再生方面具有可行性。</p>
+      <div class="card-footer">
+        <span class="tag">親職</span><span class="tag">親密關係</span><span class="tag">治療聯盟</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42622105/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🔬</span>
+        <span class="utility-mid utility-sm">中</span>
+      </div>
+      <h3>Three‑Dimensional Printing of Polycaprolactone Scaffolds with Multiscale Porosity for Bone Tissue Engineering</h3>
+      <p class="journal-source">ACS biomaterials science & engineering</p>
+      <p>一句話總結：利用糖粒作為溶解性支原體，在 PCL 塊體中創建 10 μm 级別的層級多孔結構，顯著提升濕潤性、蛋白質吸附與降解速率，並增強骨前細胞附著與礦化作用。</p>
+      <div class="card-footer">
+        <span class="tag">依附與創傷</span><span class="tag">依附與解離</span><span class="tag">神經生物學</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42619584/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🧪</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>Terminal sterilization of food‑grade coatings for cellular agriculture: robustness against water quality and regulatory feasibility</h3>
+      <p class="journal-source">Biotechnology reports (Amsterdam, Netherlands)</p>
+      <p>一句話總結：提出 iCoater 這種經過終端熱消毒製成的食品等級塗層，對多種水質範圍均保持無菌、低內毒素與 12 個月穩定性，並驗證其在鴨肝細胞培養中的附著與增殖效能，為細胞農業提供合規標示路徑。</p>
+      <div class="card-footer">
+        <span class="tag">依附與焦慮症</span><span class="tag">依附與溶脂酶</span><span class="tag">催產素</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42620750/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🦠</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>Viral commitment to infection depends on host metabolism</h3>
+      <p class="journal-source">eLife</p>
+      <p>一句話總結：在能量受限的條件下，五種大腸桿菌噬菌劑的吸附率顯著下降，較弱結合的噬菌劑更為敏感，顯示宿主代謝狀態可調節病毒感染的承諾度，提供新視角了解病毒‑宿主互作與潛在抗病毒策略。</p>
+      <div class="card-footer">
+        <span class="tag">依附神經生物學</span><span class="tag">神經傳導</span><span class="tag">心理治療</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42622628/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🧬</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>Anion States and Dissociation Pathways of the Universal Radiosensitizer Model 2,4‑Dichloro‑5‑nitropyrimidine</h3>
+      <p class="journal-source">The journal of physical chemistry. A</p>
+      <p>一句話總結：使用量子化學計算揭示 2,4‑二氯‑5‑硝基嘧啶在低能電子作用下形成多個形態態固有態與共振態，主要解離通路由 &#x3c0;3* 狀態驅動，可作為放射增敏劑的設計依據，對同時化學與放射治療的協同作用有啟示。</p>
+      <div class="card-footer">
+        <span class="tag">依附與創傷</span><span class="tag">解離</span><span class="tag">神經傳導</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42622325/" target="_blank">PubMed →</a>
+      </div>
+    </div></div>
+
+  <div class="topic-section section"><div class="section-title"><span class="section-icon">📊</span>主題分佈</div>
+      <div class="topic-row">
+        <span class="topic-name">依附理論</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+        <span class="topic-count">3</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">成人依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:67%"></div></div>
+        <span class="topic-count">2</span>
+      </div></div>
+
+  <div class="keywords-section section"><div class="section-title"><span class="section-icon">🏷️</span>關鍵字</div><div class="keywords"><span class="keyword">依附理論</span><span class="keyword">成人依附</span><span class="keyword">情緒調節</span><span class="keyword">臨床實用性</span><span class="keyword">細胞農業</span></div></div>
+
+  <div class="links-banner">
+    <a href="https://www.leepsyclinic.com/" class="link-card" target="_blank">
+      <span class="link-icon">🏥</span>
+      <span class="link-info">
+        <span class="link-name">李政洋身心診所首頁</span>
+        <span class="link-desc">專業身心科醫療服務</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+    <a href="https://blog.leepsyclinic.com/" class="link-card" target="_blank">
+      <span class="link-icon">📬</span>
+      <span class="link-info">
+        <span class="link-name">訂閱電子報</span>
+        <span class="link-desc">接收最新心理健康資訊</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+    <a href="https://buymeacoffee.com/CYlee" class="link-card coffee-card" target="_blank">
+      <span class="link-icon">☕</span>
+      <span class="link-info">
+        <span class="link-name">Buy Me a Coffee</span>
+        <span class="link-desc">支持我們繼續提供優質內容</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+  </div>
+
+  <footer>
+    <span>資料來源：PubMed &middot; 分析模型：nvidia/nemotron-3-nano-30b-a3b</span>
+    <span><a href="https://github.com/u8901006/attachment-brain">GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
