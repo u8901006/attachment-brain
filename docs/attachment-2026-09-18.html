@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Attachment Brain &middot; 依附關係文獻日報 &middot; 2026年9月18日</title>
+<meta name="description" content="2026年9月18日 依附關係文獻日報，由 AI 自動彙整 PubMed 最新論文"/>
+<style>
+  :root { --bg: #f6f1e8; --surface: #fffaf2; --line: #d8c5ab; --text: #2b2118; --muted: #766453; --accent: #8c4f2b; --accent-soft: #ead2bf; --card-bg: color-mix(in srgb, var(--surface) 92%, white); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(circle at top, #fff6ea 0, var(--bg) 55%, #ead8c6 100%); color: var(--text); font-family: "Noto Sans TC", "PingFang TC", "Helvetica Neue", Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 60px 32px 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 48px; height: 48px; border-radius: 14px; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 20px rgba(140,79,43,0.25); }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .header-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.3px; }
+  .badge-date { background: var(--accent-soft); border: 1px solid var(--line); color: var(--accent); }
+  .badge-count { background: rgba(140,79,43,0.06); border: 1px solid var(--line); color: var(--muted); }
+  .badge-source { background: transparent; color: var(--muted); font-size: 11px; padding: 0 4px; }
+  .summary-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px 32px; margin-bottom: 32px; box-shadow: 0 20px 60px rgba(61,36,15,0.06); animation: fadeUp 0.5s ease 0.1s both; }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--accent); margin-bottom: 16px; }
+  .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .section-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; background: var(--accent-soft); }
+  .news-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 22px 26px; margin-bottom: 12px; box-shadow: 0 8px 30px rgba(61,36,15,0.04); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .news-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .news-card.featured { border-left: 3px solid var(--accent); }
+  .news-card.featured:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .rank-badge { background: var(--accent); color: #fff7f0; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .emoji-icon { font-size: 18px; }
+  .card-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .emoji-sm { font-size: 14px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .journal-source { font-size: 12px; color: var(--accent); margin-bottom: 8px; opacity: 0.8; }
+  .news-card p { font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .utility-reason { font-size: 12px !important; color: var(--accent) !important; opacity: 0.85; margin-top: 4px; }
+  .card-footer { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { padding: 2px 9px; background: var(--accent-soft); border-radius: 999px; font-size: 11px; color: var(--accent); }
+  .news-card a { font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0.7; margin-left: auto; }
+  .news-card a:hover { opacity: 1; }
+  .utility-high { color: #5a7a3a; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(90,122,58,0.1); border-radius: 4px; }
+  .utility-mid { color: #9f7a2e; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(159,122,46,0.1); border-radius: 4px; }
+  .utility-low { color: var(--muted); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(118,100,83,0.08); border-radius: 4px; }
+  .utility-sm { font-size: 10px; }
+  .pico-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(255,253,249,0.8); border-radius: 14px; border: 1px solid var(--line); }
+  .pico-item { display: flex; gap: 8px; align-items: baseline; }
+  .pico-label { font-size: 10px; font-weight: 700; color: #fff7f0; background: var(--accent); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .pico-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .keywords-section { margin-bottom: 36px; }
+  .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .keyword { padding: 5px 14px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; font-size: 12px; color: var(--accent); cursor: default; transition: background 0.2s; }
+  .keyword:hover { background: rgba(140,79,43,0.18); }
+  .topic-section { margin-bottom: 36px; }
+  .topic-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .topic-name { font-size: 13px; color: var(--muted); width: 110px; flex-shrink: 0; text-align: right; }
+  .topic-bar-bg { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .topic-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #c47a4a); border-radius: 4px; transition: width 0.6s ease; }
+  .topic-count { font-size: 12px; color: var(--accent); width: 24px; }
+  .links-banner { margin-top: 48px; display: flex; flex-direction: column; gap: 12px; animation: fadeUp 0.5s ease 0.4s both; }
+  .link-card { display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; text-decoration: none; color: var(--text); transition: all 0.2s; box-shadow: 0 8px 30px rgba(61,36,15,0.04); }
+  .link-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .link-icon { font-size: 28px; flex-shrink: 0; }
+  .link-info { flex: 1; }
+  .link-name { font-size: 15px; font-weight: 700; color: var(--text); }
+  .link-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .link-arrow { font-size: 18px; color: var(--accent); font-weight: 700; }
+  .coffee-card { background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%); border-color: #f59e0b40; }
+  footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; animation: fadeUp 0.5s ease 0.5s both; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) { .container { padding: 36px 18px 60px; } .summary-card, .news-card { padding: 20px 18px; } .pico-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 6px; text-align: center; } .topic-name { width: 80px; font-size: 11px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">🔗</div>
+    <div class="header-text">
+      <h1>Attachment Brain &middot; 依附關係文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">📅 2026年9月18日</span>
+        <span class="badge badge-count">📊 16 篇文獻</span>
+        <span class="badge badge-source">Powered by PubMed + NVIDIA AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日文獻趨勢</h2>
+    <p class="summary-text">今日文獻聚焦於依附關係在成人情緒調節、夫妻互動與產後心理健康的關聯，多項研究證實依附安全感與情緒處理深度、親職敏感度及復原力呈正相關，彰显依附理論在臨床評估與介入中的核心價值。</p>
+  </div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">⭐</span>今日精選 TOP Picks</div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#1</span>
+        <span class="emoji-icon">👨‍👩‍👧‍👦</span>
+        <span class="utility-high">高實用性</span>
+      </div>
+      <h3>親子關係的一致性與青少年情緒調節：親子在親近與衝突感知上的匹配度如何影響認知重評與情緒抑制</h3>
+      <p class="journal-source">Journal of youth and adolescence &middot; Parent-Adolescent (In)Congruence in Closeness and Conflict: Differential Links to Adolescent Emotion Regulation</p>
+      <p>研究發現親子在親近與衝突感知上的一致性顯著影響青少年情緒調節策略：高親近一致性促進認知重 appraisal，而高衝突一致性則增加情緒抑制，青少年自身感受比父母報告更能預測其情緒調節能力，凸顯主觀關係體驗在發展中的關鍵作用。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">1,875 對中國親青少年 dyads（青少年平均年齡 13.06 歲）</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無（橫斷式觀察研究）</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">親子感知一致性 vs 不一致性（高親近/高衝突 vs 低親近/高衝突等）</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">認知重評與情緒抑制的使用頻率與關聯強度</span></div>
+      </div>
+      <p class="utility-reason">💡 揭示親子關係主觀匹配度是青少年情緒調節發展的關鍵因子，臨床介入應聚焦於提升雙方關係感知的一致性，而非僅改善單方面行為。</p>
+      <div class="card-footer">
+        <span class="tag">依附與情緒調節</span><span class="tag">親職</span><span class="tag">親密關係</span><span class="tag">兒少依附</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42753047/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#2</span>
+        <span class="emoji-icon">💬</span>
+        <span class="utility-high">高實用性</span>
+      </div>
+      <h3>依附焦慮與伴侶互動中情感體驗深度的關聯：高焦慮者在討論自身及伴侶議題時 exhibit 更深層情感處理</h3>
+      <p class="journal-source">Journal of marital and family therapy &middot; The Relationship Between Attachment and Depth of Experiencing During a Couple-Based, Therapy-Like Interaction</p>
+      <p>高自我報告依附焦慮與個人及伴侶議題的討論中更深層的情感體驗（EXP）正相關，而依附迴避則降低 EXP；敘事層面的安全依附則促進 EXP，尤其在男性伴侶提供支持時更顯著，顯示依附動態如何塑造伴侶治療中的情感參與。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">63 對異性戀夫妻</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無（治療樣式互動觀察）</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">高 vs 低依附焦慮/迴避；敘事安全 vs 不安全依附</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">體驗深度（Experiencing, EXP）的觀察編碼分數</span></div>
+      </div>
+      <p class="utility-reason">💡 提供實證依據，說明依附焦慮並非總是 maladaptive，在安全互動中可能促進情感探索，臨床師可利用此特質深化夫妻治療中的情感工作。</p>
+      <div class="card-footer">
+        <span class="tag">依附焦慮</span><span class="tag">伴侶治療</span><span class="tag">情緒聚焦治療</span><span class="tag">親密關係</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42753121/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#3</span>
+        <span class="emoji-icon">🤱</span>
+        <span class="utility-high">高實用性</span>
+      </div>
+      <h3>產後首年母親憂鬱症狀軌跡與依附、壓力的關聯：持續性憂鬱與低母嬰依附、童年創傷及社會支持不足緊密相連</h3>
+      <p class="journal-source">Journal of affective disorders &middot; Maternal depressive symptom trajectories in the first 12 postpartum months and the associated risk correlates.</p>
+      <p>約半數產後憂鬱在六個月內緩解，但持續性病例伴隨強烈負面情緒、低母嬰依附、童年虐待史及低社會支持；初期健康母親中有 4.7% 在產後首年發展為重度憂鬱，顯示早期調適不良是重要風險。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">191 名產後母親（初始非憂鬱、憂鬱或適應不良）</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無（縱向觀察）</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">恢復型 vs 持續型 vs 新發憂鬱軌跡</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">憂鬱症狀軌跡、母嬰依附、感知壓力</span></div>
+      </div>
+      <p class="utility-reason">💡 證實產後憂鬱為異質動態過程，強調產後首年需持續監測母嬰依附與社會支持，預防與早期介入具關鍵時機。</p>
+      <div class="card-footer">
+        <span class="tag">依附與憂鬱症</span><span class="tag">嬰幼兒依附</span><span class="tag">產後憂鬱</span><span class="tag">社會支持</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42749161/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#4</span>
+        <span class="emoji-icon">🏡</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>父母家庭歸屬感與親嬰附附：父母對家庭的歸屬感顯著預測母嬰及父嬰依附品質，父親依附更調節母親歸屬感對其依附的影響</h3>
+      <p class="journal-source">African journal of reproductive health &middot; Association between parents' sense of family belonging and parent-infant attachment: Implications for early family relationships.</p>
+      <p>家庭歸屬感與母嬰及父嬰依附顯著正相關；進一步發現父嬰依附調節母親家庭歸屬感對母嬰依附的影響，顯示父親角色在早期依附系統中的關鍵調節功能。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">422 名母親與 422 名父親</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無（橫斷式相關研究）</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">高 vs 低家庭歸屬感</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">母嬰依附尺度、父嬰依附尺度、家庭歸屬感尺度得分</span></div>
+      </div>
+      <p class="utility-reason">💡 凸顯家庭系統層面變項（如歸屬感）對親嬰依附的影響，提醒臨床師在產後評估中納入父親及家庭氛圍的觀察，而非只聚焦母嬰互動。</p>
+      <div class="card-footer">
+        <span class="tag">依附與情緒調節</span><span class="tag">親職</span><span class="tag">家庭系統</span><span class="tag">嬰幼兒依附</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42750809/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#5</span>
+        <span class="emoji-icon">🐒</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>黑猩猩與倭黑猩猩幼屍攜帶行為的多站點分析：母性行為持續性與社會脈絡解釋攜帶期間，而非必然理解死亡永恆性</h3>
+      <p class="journal-source">Biology letters &middot; Multisite analysis of infant corpse carrying in Pan reveals maternal attachment and death context as explanations of carrying duration.</p>
+      <p>幼屍攜帶期間受死亡原因、 infant 年齡及站點間生育間隔影響較強，溫度影響較弱，結果支持攜帶行為反映母性照護系統的持續性與社會風險評估，而非必然要求個體理解死亡為不可逆的生物狀態。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">83 份已發表的黑猩猩與倭黑猩猩幼屍攜帶個案</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無（橫斷式二次資料分析）</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">不同死亡原因、 infant 年齡、站點特性</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">幼屍攜帶持續時間</span></div>
+      </div>
+      <p class="utility-reason">💡 雖為基礎科學，但提供進化視角理解依附行為的根源，幫助臨床師將依附視為調適性生物系統，而非純粹心理建構，有助於減恥與共情。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">依附與創傷</span><span class="tag">進化心理學</span><span class="tag">母嬰依附</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42744331/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div></div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">📚</span>其他值得關注的文獻</div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🏡</span>
+        <span class="utility-mid utility-sm">中</span>
+      </div>
+      <h3>父母家庭歸屬感與親嬰附附：父母對家庭的歸屬感顯著預測母嬰及父嬰依附品質，父親依附更調節母親歸屬感對其依附的影響</h3>
+      <p class="journal-source">African journal of reproductive health</p>
+      <p>家庭歸屬感與母嬰及父嬰依附顯著正相關；進一步發現父嬰依附調節母親家庭歸屬感對母嬰依附的影響，顯示父親角色在早期依附系統中的關鍵調節功能。</p>
+      <div class="card-footer">
+        <span class="tag">依附與情緒調節</span><span class="tag">親職</span><span class="tag">家庭系統</span><span class="tag">嬰幼兒依附</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42750809/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🐒</span>
+        <span class="utility-mid utility-sm">中</span>
+      </div>
+      <h3>黑猩猩與倭黑猩猩幼屍攜帶行為的多站點分析：母性行為持續性與社會脈絡解釋攜帶期間，而非必然理解死亡永恆性</h3>
+      <p class="journal-source">Biology letters</p>
+      <p>幼屍攜帶期間受死亡原因、 infant 年齡及站點間生育間隔影響較強，溫度影響較弱，結果支持攜帶行為反映母性照護系統的持續性與社會風險評估，而非必然要求個體理解死亡為不可逆的生物狀態。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">依附與創傷</span><span class="tag">進化心理學</span><span class="tag">母嬰依附</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42744331/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">💬</span>
+        <span class="utility-high utility-sm">高</span>
+      </div>
+      <h3>依附焦慮與伴侶互動中情感體驗深度的關聯：高焦慮者在討論自身及伴侶議題時 exhibit 更深層情感處理</h3>
+      <p class="journal-source">Journal of marital and family therapy</p>
+      <p>高自我報告依附焦慮與個人及伴侶議題的討論中更深層的情感體驗（EXP）正相關，而依附迴避則降低 EXP；敘事層面的安全依附則促進 EXP，尤其在男性伴侶提供支持時更顯著，顯示依附動態如何塑造伴侶治療中的情感參與。</p>
+      <div class="card-footer">
+        <span class="tag">依附焦慮</span><span class="tag">伴侶治療</span><span class="tag">情緒聚焦治療</span><span class="tag">親密關係</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42753121/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🤱</span>
+        <span class="utility-high utility-sm">高</span>
+      </div>
+      <h3>產後首年母親憂鬱症狀軌跡與依附、壓力的關聯：持續性憂鬱與低母嬰依附、童年創傷及社會支持不足緊密相連</h3>
+      <p class="journal-source">Journal of affective disorders</p>
+      <p>約半數產後憂鬱在六個月內緩解，但持續性病例伴隨強烈負面情緒、低母嬰依附、童年虐待史及低社會支持；初期健康母親中有 4.7% 在產後首年發展為重度憂鬱，顯示早期調適不良是重要風險。</p>
+      <div class="card-footer">
+        <span class="tag">依附與憂鬱症</span><span class="tag">嬰幼兒依附</span><span class="tag">產後憂鬱</span><span class="tag">社會支持</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42749161/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">👨‍👩‍👧‍👦</span>
+        <span class="utility-high utility-sm">高</span>
+      </div>
+      <h3>親子關係的一致性與青少年情緒調節：親子在親近與衝突感知上的匹配度如何影響認知重評與情緒抑制</h3>
+      <p class="journal-source">Journal of youth and adolescence</p>
+      <p>研究發現親子在親近與衝突感知上的一致性顯著影響青少年情緒調節策略：高親近一致性促進認知重 appraisal，而高衝突一致性則增加情緒抑制，青少年自身感受比父母報告更能預測其情緒調節能力，凸顯主觀關係體驗在發展中的關鍵作用。</p>
+      <div class="card-footer">
+        <span class="tag">依附與情緒調節</span><span class="tag">親職</span><span class="tag">親密關係</span><span class="tag">兒少依附</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42753047/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🧫</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>Biofilm-driven antimicrobial resistance: A review of molecular mechanisms, clinical implications, and therapeutic innovation.</h3>
+      <p class="journal-source">Infection, genetics and evolution : journal of molecular epidemiology and evolutionary genetics in infectious diseases</p>
+      <p>細菌生物膜透過限制藥物滲透、代謝異質性、持續細胞形成等機制增加抗菌藥物耐受性，臨床上與慢性感染及醫療裝置相關感染緊密相關，現有模型常難以完全模擬人體宿主環境，限制其臨床轉譯。</p>
+      <div class="card-footer">
+        
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42754003/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">💧</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>鈣離子介導的硅孔石表面調節促進菌株YX13附著，強化脫氮除磷效能：性能與機制研究</h3>
+      <p class="journal-source">Bioresource technology</p>
+      <p>透過鈣離子橋接及微生物誘導鈣沉澱（MICP）的 bio-cementation 效應，有效降低硅孔石與菌株間靜電排斥，促進菌附著並提升極多糖（EPS）產生，顯著改善硝酸鹽、磷酸鹽及鈣離子的去除效率，為污水處理提供新思路。</p>
+      <div class="card-footer">
+        
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42754105/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🌻</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>向日葵寄生草過氧化物酶 OcPOD10 透過調節活性氧（ROS）積累促進寄生附著：過表達增強附著，沉默則導致過量 ROS 與吸器壞死</h3>
+      <p class="journal-source">Plant science : an international journal of experimental plant biology</p>
+      <p>OcPOD10 在 haustorium 特異表達，過表達促進寄生蟲附著，沉默則導致 haustorium 過量 ROS 積累與細胞壞死，過氧化物酶抑制劑產生類似表型，提示 OcPOD10 透過清除 ROS 維持 haustorium 完整性以促進寄生，為培育抗寄生向日葵提供基因靶點。</p>
+      <div class="card-footer">
+        
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42753923/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">☢️</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>碘-125 種子標誌下 LIF:Mg,Ti (TLD-100) 劍量測於無法觸及乳腺癌的定位應用</h3>
+      <p class="journal-source">Physica medica : PM : an international journal devoted to the applications of physics to medicine and biology : official journal of the Italian Association of Biomedical Physics (AIFB)</p>
+      <p>研究使用 TLD-100 劍量測定碘-125 種子在無法觸及乳腺病変的定位劑量，結果顯示劑量隨距離遞減符合反平方律，臟器有效劑量低（最高 0.35 mSv），未測臟器貢獻少於 5%，支持其臨床安全性。</p>
+      <div class="card-footer">
+        
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42753625/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🦷</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>透明質酸 vs 牙基質衍生物治療牙槽骨內性缺損：系統性文獻回顧與 мета分析</h3>
+      <p class="journal-source">Oral health &amp; preventive dentistry</p>
+      <p>在 3 項 RCT 中，透明質酸（HA）在臨床附著級別增益（CAL gain）上達到非劣效（WMD = 0.51 mm, 95% CI [-0.08; 1.11]），但探針深度減少（PPD）未顯示非劣效；齒齦退縮（REC）則 HA 優於 EMD（WMD = -0.4 mm），顯示 HA 可能為可選擇的替代方案，但需更多研究確認。</p>
+      <div class="card-footer">
+        
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42752698/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🤖</span>
+        <span class="utility-mid utility-sm">中</span>
+      </div>
+      <h3>AWARE 框架：評估患者在心理健康照護中使用對話式 AI 的實用工具（AI 使用、動機、依附、現實與風險、功能影響）</h3>
+      <p class="journal-source">JMIR medical education</p>
+      <p>提出 AWARE 框架，引導心理健康專業人員於臨床 encounters 中系統性探討患者使用 conversational AI 的模式、動機、情感意義、對現實測試與風險的影響，以及對心理功能與日常生活的整體影響，旨在提升臨床師對新興技術的評估能力。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">親密關係</span><span class="tag">心理治療</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42749279/" target="_blank">PubMed →</a>
+      </div>
+    </div></div>
+
+  <div class="topic-section section"><div class="section-title"><span class="section-icon">📊</span>主題分佈</div>
+      <div class="topic-row">
+        <span class="topic-name">依附理論</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+        <span class="topic-count">3</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">成人依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+        <span class="topic-count">3</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">嬰幼兒依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:67%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附焦慮</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:67%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與情緒調節</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+        <span class="topic-count">3</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">親職</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+        <span class="topic-count">3</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">伴侶治療</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:33%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">婚姻品質</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與憂鬱症</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:33%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">家庭系統</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:67%"></div></div>
+        <span class="topic-count">2</span>
+      </div></div>
+
+  <div class="keywords-section section"><div class="section-title"><span class="section-icon">🏷️</span>關鍵字</div><div class="keywords"><span class="keyword">依附焦慮</span><span class="keyword">親職</span><span class="keyword">情緒調節</span><span class="keyword">產後憂鬱</span><span class="keyword">家庭系統</span></div></div>
+
+  <div class="links-banner">
+    <a href="https://www.leepsyclinic.com/" class="link-card" target="_blank">
+      <span class="link-icon">🏥</span>
+      <span class="link-info">
+        <span class="link-name">李政洋身心診所首頁</span>
+        <span class="link-desc">專業身心科醫療服務</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+    <a href="https://blog.leepsyclinic.com/" class="link-card" target="_blank">
+      <span class="link-icon">📬</span>
+      <span class="link-info">
+        <span class="link-name">訂閱電子報</span>
+        <span class="link-desc">接收最新心理健康資訊</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+    <a href="https://buymeacoffee.com/CYlee" class="link-card coffee-card" target="_blank">
+      <span class="link-icon">☕</span>
+      <span class="link-info">
+        <span class="link-name">Buy Me a Coffee</span>
+        <span class="link-desc">支持我們繼續提供優質內容</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+  </div>
+
+  <footer>
+    <span>資料來源：PubMed &middot; 分析模型：nvidia/nemotron-3-super-120b-a12b</span>
+    <span><a href="https://github.com/u8901006/attachment-brain">GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
