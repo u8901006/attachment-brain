@@ -4,7 +4,7 @@ import { mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 
 const API_BASE = 'https://integrate.api.nvidia.com/v1';
-const MODELS = ['nvidia/nemotron-3-super-120b-a12b', 'nvidia/nemotron-3-nano-30b-a3b'];
+const MODELS = (process.env.NVIDIA_MODELS || "nvidia/nemotron-3.5-lightning-30b-a3b,deepseek-ai/deepseek-v4.1-flash").split(",").map(s => s.trim()).filter(Boolean);
 const MAX_TOKENS = 16384;
 const TIMEOUT_MS = 660000;
 
