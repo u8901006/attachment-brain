@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Attachment Brain &middot; 依附關係文獻日報 &middot; 2026年11月4日</title>
+<meta name="description" content="2026年11月4日 依附關係文獻日報，由 AI 自動彙整 PubMed 最新論文"/>
+<style>
+  :root { --bg: #f6f1e8; --surface: #fffaf2; --line: #d8c5ab; --text: #2b2118; --muted: #766453; --accent: #8c4f2b; --accent-soft: #ead2bf; --card-bg: color-mix(in srgb, var(--surface) 92%, white); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(circle at top, #fff6ea 0, var(--bg) 55%, #ead8c6 100%); color: var(--text); font-family: "Noto Sans TC", "PingFang TC", "Helvetica Neue", Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 60px 32px 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 48px; height: 48px; border-radius: 14px; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 20px rgba(140,79,43,0.25); }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .header-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.3px; }
+  .badge-date { background: var(--accent-soft); border: 1px solid var(--line); color: var(--accent); }
+  .badge-count { background: rgba(140,79,43,0.06); border: 1px solid var(--line); color: var(--muted); }
+  .badge-source { background: transparent; color: var(--muted); font-size: 11px; padding: 0 4px; }
+  .summary-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px 32px; margin-bottom: 32px; box-shadow: 0 20px 60px rgba(61,36,15,0.06); animation: fadeUp 0.5s ease 0.1s both; }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--accent); margin-bottom: 16px; }
+  .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .section-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; background: var(--accent-soft); }
+  .news-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 22px 26px; margin-bottom: 12px; box-shadow: 0 8px 30px rgba(61,36,15,0.04); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .news-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .news-card.featured { border-left: 3px solid var(--accent); }
+  .news-card.featured:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .rank-badge { background: var(--accent); color: #fff7f0; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .emoji-icon { font-size: 18px; }
+  .card-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .emoji-sm { font-size: 14px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .journal-source { font-size: 12px; color: var(--accent); margin-bottom: 8px; opacity: 0.8; }
+  .news-card p { font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .utility-reason { font-size: 12px !important; color: var(--accent) !important; opacity: 0.85; margin-top: 4px; }
+  .card-footer { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { padding: 2px 9px; background: var(--accent-soft); border-radius: 999px; font-size: 11px; color: var(--accent); }
+  .news-card a { font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0.7; margin-left: auto; }
+  .news-card a:hover { opacity: 1; }
+  .utility-high { color: #5a7a3a; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(90,122,58,0.1); border-radius: 4px; }
+  .utility-mid { color: #9f7a2e; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(159,122,46,0.1); border-radius: 4px; }
+  .utility-low { color: var(--muted); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(118,100,83,0.08); border-radius: 4px; }
+  .utility-sm { font-size: 10px; }
+  .pico-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(255,253,249,0.8); border-radius: 14px; border: 1px solid var(--line); }
+  .pico-item { display: flex; gap: 8px; align-items: baseline; }
+  .pico-label { font-size: 10px; font-weight: 700; color: #fff7f0; background: var(--accent); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .pico-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .keywords-section { margin-bottom: 36px; }
+  .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .keyword { padding: 5px 14px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; font-size: 12px; color: var(--accent); cursor: default; transition: background 0.2s; }
+  .keyword:hover { background: rgba(140,79,43,0.18); }
+  .topic-section { margin-bottom: 36px; }
+  .topic-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .topic-name { font-size: 13px; color: var(--muted); width: 110px; flex-shrink: 0; text-align: right; }
+  .topic-bar-bg { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .topic-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #c47a4a); border-radius: 4px; transition: width 0.6s ease; }
+  .topic-count { font-size: 12px; color: var(--accent); width: 24px; }
+  .links-banner { margin-top: 48px; display: flex; flex-direction: column; gap: 12px; animation: fadeUp 0.5s ease 0.4s both; }
+  .link-card { display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; text-decoration: none; color: var(--text); transition: all 0.2s; box-shadow: 0 8px 30px rgba(61,36,15,0.04); }
+  .link-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .link-icon { font-size: 28px; flex-shrink: 0; }
+  .link-info { flex: 1; }
+  .link-name { font-size: 15px; font-weight: 700; color: var(--text); }
+  .link-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .link-arrow { font-size: 18px; color: var(--accent); font-weight: 700; }
+  .coffee-card { background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%); border-color: #f59e0b40; }
+  footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; animation: fadeUp 0.5s ease 0.5s both; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) { .container { padding: 36px 18px 60px; } .summary-card, .news-card { padding: 20px 18px; } .pico-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 6px; text-align: center; } .topic-name { width: 80px; font-size: 11px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">🔗</div>
+    <div class="header-text">
+      <h1>Attachment Brain &middot; 依附關係文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">📅 2026年11月4日</span>
+        <span class="badge badge-count">📊 10 篇文獻</span>
+        <span class="badge badge-source">Powered by PubMed + NVIDIA AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日文獻趨勢</h2>
+    <p class="summary-text">今日文獻顯示，依附理論持續擴展至成人成癮、創傷後應激反應及情緒調節機制。新研究成功揭示了依附不安全感在創傷後成年人中，透過情緒調節困難與PTSD介導物質，分別影響問題性酒精使用與問題性社交媒體使用的不同機制，強化了依附-創傷-成癮模型的臨床意義；同時，有研究探討了親在重症新生兒室的存在模式，揭示了基礎設施對於家庭參與的重要性，以及分子層面的糖蛋白相互作用研究雖屬化學領域，但其對解析依附相關糖鎖結構具有理論參考價值。</p>
+  </div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">⭐</span>今日精選 TOP Picks</div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#1</span>
+        <span class="emoji-icon">🧠</span>
+        <span class="utility-high">高實用性</span>
+      </div>
+      <h3>從依附不安全到創傷後成年人的適應性行為：情緒調節困難與創傷應激的中介角色</h3>
+      <p class="journal-source">Journal of the Formosan Medical Association = Taiwan yi zhi &middot; From attachment insecurity to maladaptive addictive behaviors in trauma-exposed adults: The mediating role of emotion regulation difficulties and traumatic stress.</p>
+      <p>依附不安全感與創傷後應激症狀（PTSS）及情緒調節困難密切相關，其中問題性酒精使用主要透過情緒調節困難與PTSS雙重中介，而問題性社交媒體使用僅透過情緒調節困難中介，揭示了成癮行為在依附與創傷背景下的不同病理機制。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">203名創傷曝露成年人</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無（觀察性研究），測量依附樣式、情緒調節、PTSD及成癮行為</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">發現依附不安全感顯著預測情緒調節困難與PTSS，兩者分別中介問題性酒精與社交媒體使用之成癮發展。</span></div>
+      </div>
+      <p class="utility-reason">💡 此研究直接指引心理治療重點：在依附創傷治療中，需同時處理情緒調節能力與創傷症狀，方能有效降低不同型式的成癮風險。</p>
+      <div class="card-footer">
+        <span class="tag">依附與成癮</span><span class="tag">依附與創傷</span><span class="tag">情緒調節</span><span class="tag">創傷後應激</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42977652/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#2</span>
+        <span class="emoji-icon">👶</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>重症新生兒室親族存在與參與活動的基線實務評估</h3>
+      <p class="journal-source">Acta paediatrica (Oslo, Norway : 1992) &middot; A Family Census Evaluating Parental Presence and Activities at a Tertiary Surgical Neonatal Unit.</p>
+      <p>在重症新生兒室，母親平均每日在場7.6小時，父親4.1小時，整體在場時長平均7.9小時。住院距離遠、有其他子女或非英語為primary language的家庭，參與機會顯著降低。住宿設施可顯著增加父母在場時長，為家庭整合照護(FICare)的實施提供基準數據。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">重症新生兒室家屬（母親與父親）</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無（觀察性人口普查），記錄親族在場時長與活動類型</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">確認親族在場時長受新生兒臨床狀況、家庭距離、語言障礙及照護安排等因素影響，住宿設施與室內住宿與較高在場時長相關。</span></div>
+      </div>
+      <p class="utility-reason">💡 作為FICare介入前的基線評估，提醒醫療團隊關注物理環境（如住宿）與個體差異（如語言、距離）對親族參與的影響，有助於後續設計更具公平性的支援方案。</p>
+      <div class="card-footer">
+        <span class="tag">親職</span><span class="tag">照顧者敏感度</span><span class="tag">家庭整合照護</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42975140/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#3</span>
+        <span class="emoji-icon">🧪</span>
+        <span class="utility-low">低實用性</span>
+      </div>
+      <h3>探討2'-富烯乳糖類輔助物對諾羅病毒識別中的羥基角色</h3>
+      <p class="journal-source">The Journal of organic chemistry &middot; Synthesis of Fluorinated 2'-Fucosyllactose Analogues: Investigating the Roles of Primary and Anomeric Hydroxyl Groups in Norovirus Recognition.</p>
+      <p>合成一系列2'-富烯乳糖(2'-FL)的氟化類似物，證實在諾羅病毒GII.4 Sydney P-domain的識別中，主要羥基與錯位羥基的修飾並不顯著影響結合親和力，展示了2'-FL類似物在探討糖蛋白相互作用上的穩定性與實用性。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">適用於分子生物學研究的GII.4 Sydney諾羅病毒P-domain</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">化學合成之2'-FL氟化類似物</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">天然2'-FL</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">證明氟化修飾不會顯著擾亂配體識別，提供穩定的探針工具用於後續研究糖蛋白互作，間接支持依附理論中糖鎖在病毒阻斷或細胞識別中的角色探討。</span></div>
+      </div>
+      <p class="utility-reason">💡 屬基礎化學研究，雖提供糖蛋白互作的穩定模型，但對臨床依附治療無直接應用價值，僅作理論參考。</p>
+      <div class="card-footer">
+        <span class="tag">依附神經生物學</span><span class="tag">催產素</span><span class="tag">糖蛋白互作</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42977720/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#4</span>
+        <span class="emoji-icon">🌿</span>
+        <span class="utility-low">低實用性</span>
+      </div>
+      <h3>電子催化增強非熱等離子體中全氟烷基物質降解</h3>
+      <p class="journal-source">ChemSusChem &middot; Electron Catalysis for Enhanced Per- and Polyfluoroalkyl Substances Degradation in Nonthermal Plasma.</p>
+      <p>發現全氟磺酸類的陰性自由基中電子附著可使C-F與C-S鍵能減弱高達80 kcal/mol，啟動脫氟降解路徑。電子與氫原子為主要去氟代理，氧化自由基次之，提出一種電催化機制，使PFAS降解效率提升四倍，提供綠色環境修復的新策略。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">環境科學與化學研究背景</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">電子催化與非熱等離子體技術</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">傳統PFAS降解方法</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">電子上調促進催化脫氟循環，透過自由基交互作用顯著增強氟離子釋放，提出新的環境修復策略。</span></div>
+      </div>
+      <p class="utility-reason">💡 本篇屬環境化學領域，與臨床醫學或心理治療無直接關聯，僅作廣域科技趨勢參考。</p>
+      <div class="card-footer">
+        <span class="tag">環境健康</span><span class="tag">電子催化</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42974895/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#5</span>
+        <span class="emoji-icon">🦷</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>重粘復歧材料對牙周軟組織附著細胞反應的敘述性文獻綜述</h3>
+      <p class="journal-source">Dental materials : official publication of the Academy of Dental Materials &middot; Effect of restorative dental materials on cellular responses relevant to periodontal soft-tissue attachment. A narrative review of in-vitro studies and future perspectives.</p>
+      <p>回顧20項體外研究，發現線 polishing、防止氧抑制層與生物活性樹脂涂層可改善細胞附著，但材料填充物系統、度化度或氬射處理等修飾未產生一致改善。細胞毒性仍是限制軟組織附著的關鍵因素。提供未來標準化測試與生物相容材料設計的方向。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">體外研究背景，聚焦牙周軟組織細胞</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">不同重粘復歧材料與表面處理</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">對照組（無處理或不同材料）</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">證明表面物理化學性質（如粗糙度、轉化度）與細胞毒性是影響牙周軟組織附著的主要決定因子。</span></div>
+      </div>
+      <p class="utility-reason">💡 對口腔醫學從業者具有參考價值，提醒在選擇修復材料時需考慮其細胞毒性與表面性質，間接影響牙周軟組織健康，但非核心依附理論文獻。</p>
+      <div class="card-footer">
+        <span class="tag">依附神經生物學</span><span class="tag">牙周健康</span><span class="tag">材料科學</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42977595/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div></div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">📚</span>其他值得關注的文獻</div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🧠</span>
+        <span class="utility-high utility-sm">高</span>
+      </div>
+      <h3>從依附不安全到創傷後成年人的適應性行為：情緒調節困難與創傷應激的中介角色</h3>
+      <p class="journal-source">Journal of the Formosan Medical Association = Taiwan yi zhi</p>
+      <p>依附不安全感與創傷後應激症狀（PTSS）及情緒調節困難密切相關，其中問題性酒精使用主要透過情緒調節困難與PTSS雙重中介，而問題性社交媒體使用僅透過情緒調節困難中介，揭示了成癮行為在依附與創傷背景下的不同病理機制。</p>
+      <div class="card-footer">
+        <span class="tag">依附與成癮</span><span class="tag">依附與創傷</span><span class="tag">情緒調節</span><span class="tag">創傷後應激</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42977652/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">👶</span>
+        <span class="utility-mid utility-sm">中</span>
+      </div>
+      <h3>重症新生兒室親族存在與參與活動的基線實務評估</h3>
+      <p class="journal-source">Acta paediatrica (Oslo, Norway : 1992)</p>
+      <p>在重症新生兒室，母親平均每日在場7.6小時，父親4.1小時，整體在場時長平均7.9小時。住院距離遠、有其他子女或非英語為primary language的家庭，參與機會顯著降低。住宿設施可顯著增加父母在場時長，為家庭整合照護(FICare)的實施提供基準數據。</p>
+      <div class="card-footer">
+        <span class="tag">親職</span><span class="tag">照顧者敏感度</span><span class="tag">家庭整合照護</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42975140/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🧪</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>探討2'-富烯乳糖類輔助物對諾羅病毒識別中的羥基角色</h3>
+      <p class="journal-source">The Journal of organic chemistry</p>
+      <p>合成一系列2'-富烯乳糖(2'-FL)的氟化類似物，證實在諾羅病毒GII.4 Sydney P-domain的識別中，主要羥基與錯位羥基的修飾並不顯著影響結合親和力，展示了2'-FL類似物在探討糖蛋白互作上的穩定性與實用性。</p>
+      <div class="card-footer">
+        <span class="tag">依附神經生物學</span><span class="tag">催產素</span><span class="tag">糖蛋白互作</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42977720/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🌿</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>電子催化增強非熱等離子體中全氟烷基物質降解</h3>
+      <p class="journal-source">ChemSusChem</p>
+      <p>發現全氟磺酸類的陰性自由基中電子附著可使C-F與C-S鍵能減弱高達80 kcal/mol，啟動脫氟降解路徑。電子與氫原子為主要去氟代理，氧化自由基次之，提出一種電催化機制，使PFAS降解效率提升四倍，提供綠色環境修復的新策略。</p>
+      <div class="card-footer">
+        <span class="tag">環境健康</span><span class="tag">電子催化</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42974895/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🦷</span>
+        <span class="utility-mid utility-sm">中</span>
+      </div>
+      <h3>重粘復歧材料對牙周軟組織附著細胞反應的敘述性文獻綜述</h3>
+      <p class="journal-source">Dental materials : official publication of the Academy of Dental Materials</p>
+      <p>回顧20項體外研究，發現線 polishing、防止氧抑制層與生物活性樹脂涂層可改善細胞附著，但材料填充物系統、度化度或氬射處理等修飾未產生一致改善。細胞毒性仍是限制軟組織附著的關鍵因素。提供未來標準化測試與生物相容材料設計的方向。</p>
+      <div class="card-footer">
+        <span class="tag">依附神經生物學</span><span class="tag">牙周健康</span><span class="tag">材料科學</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/42977595/" target="_blank">PubMed →</a>
+      </div>
+    </div></div>
+
+  <div class="topic-section section"><div class="section-title"><span class="section-icon">📊</span>主題分佈</div>
+      <div class="topic-row">
+        <span class="topic-name">依附理論</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+        <span class="topic-count">4</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">成人依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:75%"></div></div>
+        <span class="topic-count">3</span>
+      </div></div>
+
+  <div class="keywords-section section"><div class="section-title"><span class="section-icon">🏷️</span>關鍵字</div><div class="keywords"><span class="keyword">依附理論</span><span class="keyword">成人依附</span><span class="keyword">情緒調節</span><span class="keyword">創傷後應激</span><span class="keyword">成癮行為</span></div></div>
+
+  <div class="links-banner">
+    <a href="https://www.leepsyclinic.com/" class="link-card" target="_blank">
+      <span class="link-icon">🏥</span>
+      <span class="link-info">
+        <span class="link-name">李政洋身心診所首頁</span>
+        <span class="link-desc">專業身心科醫療服務</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+    <a href="https://blog.leepsyclinic.com/" class="link-card" target="_blank">
+      <span class="link-icon">📬</span>
+      <span class="link-info">
+        <span class="link-name">訂閱電子報</span>
+        <span class="link-desc">接收最新心理健康資訊</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+    <a href="https://buymeacoffee.com/CYlee" class="link-card coffee-card" target="_blank">
+      <span class="link-icon">☕</span>
+      <span class="link-info">
+        <span class="link-name">Buy Me a Coffee</span>
+        <span class="link-desc">支持我們繼續提供優質內容</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+  </div>
+
+  <footer>
+    <span>資料來源：PubMed &middot; 分析模型：nvidia/nemotron-3.5-lightning-30b-a3b</span>
+    <span><a href="https://github.com/u8901006/attachment-brain">GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
