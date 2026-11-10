@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Attachment Brain &middot; 依附關係文獻日報 &middot; 2026年11月10日</title>
+<meta name="description" content="2026年11月10日 依附關係文獻日報，由 AI 自動彙整 PubMed 最新論文"/>
+<style>
+  :root { --bg: #f6f1e8; --surface: #fffaf2; --line: #d8c5ab; --text: #2b2118; --muted: #766453; --accent: #8c4f2b; --accent-soft: #ead2bf; --card-bg: color-mix(in srgb, var(--surface) 92%, white); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(circle at top, #fff6ea 0, var(--bg) 55%, #ead8c6 100%); color: var(--text); font-family: "Noto Sans TC", "PingFang TC", "Helvetica Neue", Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 60px 32px 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 48px; height: 48px; border-radius: 14px; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 20px rgba(140,79,43,0.25); }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .header-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.3px; }
+  .badge-date { background: var(--accent-soft); border: 1px solid var(--line); color: var(--accent); }
+  .badge-count { background: rgba(140,79,43,0.06); border: 1px solid var(--line); color: var(--muted); }
+  .badge-source { background: transparent; color: var(--muted); font-size: 11px; padding: 0 4px; }
+  .summary-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px 32px; margin-bottom: 32px; box-shadow: 0 20px 60px rgba(61,36,15,0.06); animation: fadeUp 0.5s ease 0.1s both; }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--accent); margin-bottom: 16px; }
+  .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .section-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; background: var(--accent-soft); }
+  .news-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 22px 26px; margin-bottom: 12px; box-shadow: 0 8px 30px rgba(61,36,15,0.04); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .news-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .news-card.featured { border-left: 3px solid var(--accent); }
+  .news-card.featured:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .rank-badge { background: var(--accent); color: #fff7f0; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .emoji-icon { font-size: 18px; }
+  .card-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .emoji-sm { font-size: 14px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .journal-source { font-size: 12px; color: var(--accent); margin-bottom: 8px; opacity: 0.8; }
+  .news-card p { font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .utility-reason { font-size: 12px !important; color: var(--accent) !important; opacity: 0.85; margin-top: 4px; }
+  .card-footer { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { padding: 2px 9px; background: var(--accent-soft); border-radius: 999px; font-size: 11px; color: var(--accent); }
+  .news-card a { font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0.7; margin-left: auto; }
+  .news-card a:hover { opacity: 1; }
+  .utility-high { color: #5a7a3a; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(90,122,58,0.1); border-radius: 4px; }
+  .utility-mid { color: #9f7a2e; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(159,122,46,0.1); border-radius: 4px; }
+  .utility-low { color: var(--muted); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(118,100,83,0.08); border-radius: 4px; }
+  .utility-sm { font-size: 10px; }
+  .pico-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(255,253,249,0.8); border-radius: 14px; border: 1px solid var(--line); }
+  .pico-item { display: flex; gap: 8px; align-items: baseline; }
+  .pico-label { font-size: 10px; font-weight: 700; color: #fff7f0; background: var(--accent); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .pico-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .keywords-section { margin-bottom: 36px; }
+  .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .keyword { padding: 5px 14px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; font-size: 12px; color: var(--accent); cursor: default; transition: background 0.2s; }
+  .keyword:hover { background: rgba(140,79,43,0.18); }
+  .topic-section { margin-bottom: 36px; }
+  .topic-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .topic-name { font-size: 13px; color: var(--muted); width: 110px; flex-shrink: 0; text-align: right; }
+  .topic-bar-bg { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .topic-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #c47a4a); border-radius: 4px; transition: width 0.6s ease; }
+  .topic-count { font-size: 12px; color: var(--accent); width: 24px; }
+  .links-banner { margin-top: 48px; display: flex; flex-direction: column; gap: 12px; animation: fadeUp 0.5s ease 0.4s both; }
+  .link-card { display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; text-decoration: none; color: var(--text); transition: all 0.2s; box-shadow: 0 8px 30px rgba(61,36,15,0.04); }
+  .link-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .link-icon { font-size: 28px; flex-shrink: 0; }
+  .link-info { flex: 1; }
+  .link-name { font-size: 15px; font-weight: 700; color: var(--text); }
+  .link-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .link-arrow { font-size: 18px; color: var(--accent); font-weight: 700; }
+  .coffee-card { background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%); border-color: #f59e0b40; }
+  footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; animation: fadeUp 0.5s ease 0.5s both; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) { .container { padding: 36px 18px 60px; } .summary-card, .news-card { padding: 20px 18px; } .pico-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 6px; text-align: center; } .topic-name { width: 80px; font-size: 11px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">🔗</div>
+    <div class="header-text">
+      <h1>Attachment Brain &middot; 依附關係文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">📅 2026年11月10日</span>
+        <span class="badge badge-count">📊 8 篇文獻</span>
+        <span class="badge badge-source">Powered by PubMed + NVIDIA AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日文獻趨勢</h2>
+    <p class="summary-text">今日文獻總體呈現跨領域延伸趨勢，從分子醫學的 iADC 設計到精神病理層面的情感與依附機制皆有涉獵。核心亮點在於「依附理論」作為跨學科框架在親子關係、移民家庭及創傷治療中的應用增長，同時精神藥理學研究揭示了催產素與皮質醇在觸覺強化中的關鍵角色，以及皮質醇基 iADC 在抗發炎藥物開發中的進展。</p>
+  </div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">⭐</span>今日精選 TOP Picks</div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#1</span>
+        <span class="emoji-icon">👨‍👩‍👧‍👦</span>
+        <span class="utility-high">高實用性</span>
+      </div>
+      <h3>透過 ANCHOR  parent program 增強移民與難民家庭之間的依附關係</h3>
+      <p class="journal-source">Journal of research on adolescence &middot; Enhancing relationship strengths in immigrant and refugee families: Examining the feasibility and acceptability of the ANCHOR parenting program.</p>
+      <p>一項以依附為基礎的親職課程顯著提升了移民與 refugee 照護者的親職效能、同理心與親子一致性，透過情感導向的溝通與文化力量的認可，強化了 parent-child 關係中的安全基地功能，展現出改善親子依附關係之潛力。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">移民與難民背景之照護者（主要為女性）</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">ANCHOR 親職社區課程</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">單組前後評估（無對照組）</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">親職效能、親媽媽同理心、親子一致性顯著提升；親子情感溝通與信任增進</span></div>
+      </div>
+      <p class="utility-reason">💡 提供了一種文化敏感、低成本且可實施的干預模式，直接針對親子依附品質，對改善移民家庭心理健康有實質意義。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">成人依附</span><span class="tag">親職</span><span class="tag">跨代傳遞</span><span class="tag">心理治療</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43000913/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#2</span>
+        <span class="emoji-icon">💊</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>情感觸覺強化中中枢一胺類物質之角色</h3>
+      <p class="journal-source">Psychopharmacology &middot; The role of central monoamines in the positive reinforcing effects of affective touch.</p>
+      <p>研究揭示，增加腦內多巴膠濃度（特別是成癮性高的藥物如可卡因、安非他命）能顯著增強情感觸覺的強化效果，而催產素作為正向對照亦顯著提升觸覺強化。這提供了生物學層面解釋社會 bonding 機制，並對理解物質濫用與情感觸覺之間的關聯具有重要意義。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">實驗動物（大鼠）</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">中枢神經遞質調節（藥物處理）</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">鹼鹹液對照、催產素對照</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">情感觸覺具正向強化效果；多巴膠增強強化，MDMA 創傷強化效果（與人類報告不符）</span></div>
+      </div>
+      <p class="utility-reason">💡 解釋了藥物作用於情感觸覺之機制，可作為成癮行為與情感治療之參考，但屬基礎研究，直接臨床應用有限。</p>
+      <div class="card-footer">
+        <span class="tag">精神藥理學</span><span class="tag">催產素</span><span class="tag">依附與情緒調節</span><span class="tag">中枢神經</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43002249/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#3</span>
+        <span class="emoji-icon">🧬</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>糖皮質激素基 iADC 在抗發炎藥物開發中的策略進展</h3>
+      <p class="journal-source">Bioorganic chemistry &middot; Glucocorticoid-based immunology antibody-drug conjugates: linker, warhead, and targeting strategies for anti-inflammatory drug development.</p>
+      <p>綒評述 iADC 策略，利用糖皮質激素作為載藥基團精準靶向發炎細胞，以減少系統性副作用。文中詳細比較了不同連結子與載藥設計，並從轉譯醫學角度討論了臨床發展的挑戰，特別是 ABBV-154 的停止臨床，凸顯了建立差異化風險收益比之重要性。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">炎症疾病患者（潛在）</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">糖皮質激素基免疫抗體藥物偶聯物</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">傳統全身給藥</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">能量釋放機制多樣化；臨床階段進展有限，部分鍥劑因聚集問題與安全性挑戰被終止</span></div>
+      </div>
+      <p class="utility-reason">💡 作為一種新興的精準藥物遞送策略，雖臨床階段仍在探索中，但其針對性遞送之概念對未來抗發炎藥物開發具有啟發意義。</p>
+      <div class="card-footer">
+        <span class="tag">依附神經生物學</span><span class="tag">皮質醇</span><span class="tag">分子醫學</span><span class="tag">抗發炎</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43003049/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#4</span>
+        <span class="emoji-icon">🏥</span>
+        <span class="utility-high">高實用性</span>
+      </div>
+      <h3>透過情感焦點治療提升成人依附安全感：CRF 患者之研究</h3>
+      <p class="journal-source">The Journal of craniofacial surgery &middot; Psychological Health in Adults With Craniofacial Microsomia: Exploring Factors Associated With Distress and Well-Being.</p>
+      <p>CFM 成年患者表現出較高的焦慮與憂鬱症狀，約四分之一符合創傷後應激症簽檢標準，且普遍存在依附困難。研究識別出聽力滿意度、面部外觀滿意度、樂觀主義以及成年友誼滿意度為保護性因子，提示臨床上應優先關注依附相關之心理干預。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">成人顎面顱骨畸形（CFM）患者</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">觀察性調查</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">發文對照標準</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">焦慮、憂鬱、PTSD 症狀普遍；體象自卑與依附困難為主要問題；滿意度與樂觀與較佳心理結果相關</span></div>
+      </div>
+      <p class="utility-reason">💡 直接點出 CFM 族群中普遍存在的依附困擾與心理 distress，對於制定包含依附視角的跨專業治療方案具有高度實用性。</p>
+      <div class="card-footer">
+        <span class="tag">成人依附</span><span class="tag">依附與焦慮症</span><span class="tag">依附與PTSD</span><span class="tag">親密關係</span><span class="tag">心理健康</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43002739/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#5</span>
+        <span class="emoji-icon">🦷</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>de-epithelialized gingival graft 較優於 subepithelial 結合組織移植在根面覆蓋之完全根覆蓋率</h3>
+      <p class="journal-source">Clinical and experimental dental research &middot; Efficacy of De-Epithelialized vs. Subepithelial Grafts in Periodontal Plastic Surgery for Gingival Recession: A Systematic Review and Meta-Analysis of Root Coverage Techniques.</p>
+      <p>系統評估比較 DGG 與 SCTG 治療牙齦退縮，結果顯示 DGG 在達成完全根覆蓋率（CRC）上顯著優於 SCTG，兩者在其他臨床結果如鎖骨組織寬度增益與患者自報疼痛上無顯著差異，DGG 可作為可行的替代方案。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">接受牙齦退縮治療之患者</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">de-epithelialized gingival graft (DGG)</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">subepithelial connective tissue graft (SCTG)</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">完全根覆蓋率顯著較高（DG 勝出）；其他臨床參數如探針深度縮減小差異</span></div>
+      </div>
+      <p class="utility-reason">💡 提供了明確的臨床證據，讓牙醫在選擇 grafting 方案時有更具依據的比較，對改善治療結果有直接幫助。</p>
+      <div class="card-footer">
+        <span class="tag">依附與情緒調節</span><span class="tag">牙醫治療</span><span class="tag">手術結果</span><span class="tag">根面覆蓋</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43002561/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div></div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">📚</span>其他值得關注的文獻</div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">📖</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>自我轉化與性風險行為：伊朗婦女的經驗質性研究</h3>
+      <p class="journal-source">Social science & medicine</p>
+      <p>在性別不平等的文化社會結構中，婦女常在無法協商性權利的情境下首次經驗性行為，性風險行為被解讀為尋求機能與建立責任關係的過程，而非單純的風險取向，提供了文化敏感的性健康政策參考。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">成人依附</span><span class="tag">跨代傳遞</span><span class="tag">親密關係</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43003001/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🔬</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>基於 Sigma 受體調節子與蛋白酶體損傷劑的首個偶聯物設計與生物學評估</h3>
+      <p class="journal-source">European journal of medicinal chemistry</p>
+      <p>開發出結合 Sigma 受體調節子與蛋白酶體抑制劑之共軛分子，在腫瘤細胞中顯示出顯著優於 parent compound 之效力，RC-241 在膠芽腫細胞中表現最強勁，透過間接抑制蛋白酶體誘發類似 Paraptosis 之細胞死亡，提供了新的腫瘤治療策略思路。</p>
+      <div class="card-footer">
+        <span class="tag">精神藥理學</span><span class="tag">分子醫學</span><span class="tag">腫瘤治療</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43002976/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🦴</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>根 trunk 解剖結構對 furcation 再生成功率之影響：回顧性多中心臨床研究</h3>
+      <p class="journal-source">Clinical and experimental dental research</p>
+      <p>研究發現根 trunk 形態並非影響 furcation 再生成功率的關鍵因素，成功率更受中心經驗、度數大小、性別與治療方案顯著影響，提示臨床操作經驗與治療方案選擇比單純解剖結構更為重要。</p>
+      <div class="card-footer">
+        <span class="tag">牙醫治療</span><span class="tag">再生醫學</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43002562/" target="_blank">PubMed →</a>
+      </div>
+    </div></div>
+
+  <div class="topic-section section"><div class="section-title"><span class="section-icon">📊</span>主題分佈</div>
+      <div class="topic-row">
+        <span class="topic-name">依附理論</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+        <span class="topic-count">5</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">成人依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:80%"></div></div>
+        <span class="topic-count">4</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">嬰幼兒依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:20%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附焦慮</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:40%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附逃避</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:20%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依憂鬱症</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:40%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依焦慮症</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:40%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依PTSD</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:40%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依創傷</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:20%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依解離</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">邊緣型人格</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依情緒調節</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:40%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依神經生物學</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:20%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">催產素</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:20%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">皮質醇</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:20%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">fMRI</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">親密關係</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:60%"></div></div>
+        <span class="topic-count">3</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">伴侶治療</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">婚姻品質</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">親職</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:20%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">照顧者敏感度</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">跨代傳遞</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:40%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">治療聯盟</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">心理治療</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:20%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">情緒聚焦治療</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:20%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">迷戀依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">解組依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">逃避依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">兒少依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">同儕依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依孤獨</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依與成癮</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:20%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依食物障礙</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依自傷</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">精神藥理學</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:20%"></div></div>
+        <span class="topic-count">1</span>
+      </div></div>
+
+  <div class="keywords-section section"><div class="section-title"><span class="section-icon">🏷️</span>關鍵字</div><div class="keywords"><span class="keyword">依附理論</span><span class="keyword">成人依附</span><span class="keyword">親職</span><span class="keyword">情感觸覺</span><span class="keyword">皮質醇</span><span class="keyword">iADC</span><span class="keyword">牙醫再生</span><span class="keyword">心理健康</span></div></div>
+
+  <div class="links-banner">
+    <a href="https://www.leepsyclinic.com/" class="link-card" target="_blank">
+      <span class="link-icon">🏥</span>
+      <span class="link-info">
+        <span class="link-name">李政洋身心診所首頁</span>
+        <span class="link-desc">專業身心科醫療服務</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+    <a href="https://blog.leepsyclinic.com/" class="link-card" target="_blank">
+      <span class="link-icon">📬</span>
+      <span class="link-info">
+        <span class="link-name">訂閱電子報</span>
+        <span class="link-desc">接收最新心理健康資訊</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+    <a href="https://buymeacoffee.com/CYlee" class="link-card coffee-card" target="_blank">
+      <span class="link-icon">☕</span>
+      <span class="link-info">
+        <span class="link-name">Buy Me a Coffee</span>
+        <span class="link-desc">支持我們繼續提供優質內容</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+  </div>
+
+  <footer>
+    <span>資料來源：PubMed &middot; 分析模型：nvidia/nemotron-3.5-lightning-30b-a3b</span>
+    <span><a href="https://github.com/u8901006/attachment-brain">GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
