@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Attachment Brain &middot; 依附關係文獻日報 &middot; 2026年11月14日</title>
+<meta name="description" content="2026年11月14日 依附關係文獻日報，由 AI 自動彙整 PubMed 最新論文"/>
+<style>
+  :root { --bg: #f6f1e8; --surface: #fffaf2; --line: #d8c5ab; --text: #2b2118; --muted: #766453; --accent: #8c4f2b; --accent-soft: #ead2bf; --card-bg: color-mix(in srgb, var(--surface) 92%, white); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(circle at top, #fff6ea 0, var(--bg) 55%, #ead8c6 100%); color: var(--text); font-family: "Noto Sans TC", "PingFang TC", "Helvetica Neue", Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 60px 32px 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 48px; height: 48px; border-radius: 14px; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 20px rgba(140,79,43,0.25); }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .header-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.3px; }
+  .badge-date { background: var(--accent-soft); border: 1px solid var(--line); color: var(--accent); }
+  .badge-count { background: rgba(140,79,43,0.06); border: 1px solid var(--line); color: var(--muted); }
+  .badge-source { background: transparent; color: var(--muted); font-size: 11px; padding: 0 4px; }
+  .summary-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px 32px; margin-bottom: 32px; box-shadow: 0 20px 60px rgba(61,36,15,0.06); animation: fadeUp 0.5s ease 0.1s both; }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--accent); margin-bottom: 16px; }
+  .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .section-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; background: var(--accent-soft); }
+  .news-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 22px 26px; margin-bottom: 12px; box-shadow: 0 8px 30px rgba(61,36,15,0.04); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .news-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .news-card.featured { border-left: 3px solid var(--accent); }
+  .news-card.featured:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .rank-badge { background: var(--accent); color: #fff7f0; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .emoji-icon { font-size: 18px; }
+  .card-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .emoji-sm { font-size: 14px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .journal-source { font-size: 12px; color: var(--accent); margin-bottom: 8px; opacity: 0.8; }
+  .news-card p { font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .utility-reason { font-size: 12px !important; color: var(--accent) !important; opacity: 0.85; margin-top: 4px; }
+  .card-footer { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { padding: 2px 9px; background: var(--accent-soft); border-radius: 999px; font-size: 11px; color: var(--accent); }
+  .news-card a { font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0.7; margin-left: auto; }
+  .news-card a:hover { opacity: 1; }
+  .utility-high { color: #5a7a3a; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(90,122,58,0.1); border-radius: 4px; }
+  .utility-mid { color: #9f7a2e; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(159,122,46,0.1); border-radius: 4px; }
+  .utility-low { color: var(--muted); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(118,100,83,0.08); border-radius: 4px; }
+  .utility-sm { font-size: 10px; }
+  .pico-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(255,253,249,0.8); border-radius: 14px; border: 1px solid var(--line); }
+  .pico-item { display: flex; gap: 8px; align-items: baseline; }
+  .pico-label { font-size: 10px; font-weight: 700; color: #fff7f0; background: var(--accent); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .pico-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .keywords-section { margin-bottom: 36px; }
+  .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .keyword { padding: 5px 14px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; font-size: 12px; color: var(--accent); cursor: default; transition: background 0.2s; }
+  .keyword:hover { background: rgba(140,79,43,0.18); }
+  .topic-section { margin-bottom: 36px; }
+  .topic-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .topic-name { font-size: 13px; color: var(--muted); width: 110px; flex-shrink: 0; text-align: right; }
+  .topic-bar-bg { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .topic-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #c47a4a); border-radius: 4px; transition: width 0.6s ease; }
+  .topic-count { font-size: 12px; color: var(--accent); width: 24px; }
+  .links-banner { margin-top: 48px; display: flex; flex-direction: column; gap: 12px; animation: fadeUp 0.5s ease 0.4s both; }
+  .link-card { display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; text-decoration: none; color: var(--text); transition: all 0.2s; box-shadow: 0 8px 30px rgba(61,36,15,0.04); }
+  .link-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .link-icon { font-size: 28px; flex-shrink: 0; }
+  .link-info { flex: 1; }
+  .link-name { font-size: 15px; font-weight: 700; color: var(--text); }
+  .link-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .link-arrow { font-size: 18px; color: var(--accent); font-weight: 700; }
+  .coffee-card { background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%); border-color: #f59e0b40; }
+  footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; animation: fadeUp 0.5s ease 0.5s both; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) { .container { padding: 36px 18px 60px; } .summary-card, .news-card { padding: 20px 18px; } .pico-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 6px; text-align: center; } .topic-name { width: 80px; font-size: 11px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">🔗</div>
+    <div class="header-text">
+      <h1>Attachment Brain &middot; 依附關係文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">📅 2026年11月14日</span>
+        <span class="badge badge-count">📊 14 篇文獻</span>
+        <span class="badge badge-source">Powered by PubMed + NVIDIA AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日文獻趨勢</h2>
+    <p class="summary-text">今日文獻集中在依附理論在醫學教育、跨文化情感體驗、青少年發展、以及臨床治癗介入（特別是ATTACH程式）等多重面向的應用。顯著趨勢包括：1) 解構文化背景如何影響醫學生對解剖標本的情感反應與依附穩定性；2) 探討種族、性別歧視與家長社會化對青少年依附與調適的保護作用；3) 驗證ATTACH程式在原住民家庭中提昇心理化反思功能與親子互動之效果。</p>
+  </div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">⭐</span>今日精選 TOP Picks</div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#1</span>
+        <span class="emoji-icon">🧠</span>
+        <span class="utility-high">高實用性</span>
+      </div>
+      <h3>從預期恐懼到專業欽佩：醫學生初次解剖體驗的跨文化情感觀察</h3>
+      <p class="journal-source">Medical science educator &middot; From Anticipatory Fear to Professional Appreciation: A Cross-Cultural Observation of Emotional Experiences in Medical Students During Initial Donor Dissection.</p>
+      <p>醫學生跨文化初次解剖體驗後，情感差異歸一，焦慮下降，負面應對顯著差異，文化依附穩定不變，顯示解剖經驗是形成專業身份的關鍵共同體驗，文化背景影響而非改變其情感處理。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">跨文化第一年醫學生</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">初次解剖體驗</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">不同機構間比較</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">情感收斂、焦慮降低、依附穩定</span></div>
+      </div>
+      <p class="utility-reason">💡 提供證據支持依附穩定性，指引文化敏感的解剖課程設計，提升專業身份訓練效果。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">成人依附</span><span class="tag">醫學教育</span><span class="tag">跨文化</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43031660/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#2</span>
+        <span class="emoji-icon">👨‍👩‍👧</span>
+        <span class="utility-high">高實用性</span>
+      </div>
+      <h3>ATTACH程式對原住民家庭的效果：試點研究發現</h3>
+      <p class="journal-source">Canadian journal of public health = Revue canadienne de santé publique &middot; Effectiveness of the ATTACH™ program on Indigenous parents and their children exposed to intergenerational stress: pilot findings.</p>
+      <p>ATTACH程式顯著提昇原住民家長的心理化反思功能、親子互動品質及兒童發展結果，對抗代際壓力（貧困、家暴等）具有促效，為高風險家庭提供有希望的心理治療方案。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">經歷代間壓力的原住民家庭</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">ATTACH程式（10-12週心理化 parenting 干預）</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">前後比較（對照組設計）</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">心理化反思功能提昇、親子互動改善、兒童發展好轉</span></div>
+      </div>
+      <p class="utility-reason">💡 具有明顯的臨床改善數據，專門針對代際壓力群體，可作為原住民心理健康促進的實證干預方案。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">親職</span><span class="tag">心理治療</span><span class="tag">催產素</span><span class="tag">代際傳遞</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/41667754/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#3</span>
+        <span class="emoji-icon">⚕️</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>多重附著點與廣泛附著預測鼻竇乳頭狀腫復發</h3>
+      <p class="journal-source">American journal of rhinology & allergy &middot; Multiple Attachment Sites and Broad-Based Attachment Predict Recurrence in Sinonasal Papilloma.</p>
+      <p>乳頭狀腫患者若具有多個附著點或廣泛基底附著，復發風險顯著上升（多重附著OR=18.7，廣泛基底OR=13.3），提升手術前的風險評估精準度，指導更徹底的手術範圍。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">接受手術治療的鼻竇乳頭狀腫患者</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">術後病理與隨診</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">單一附著 vs 多重/廣泛附著</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">復發率顯著上升，與手術範圍相關</span></div>
+      </div>
+      <p class="utility-reason">💡 手術決策的輔助指標，雖具預測意義但需結合病理與影像綜合評估，非即時床邊應用。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">外科手術</span><span class="tag">復發預測</span><span class="tag">病理分類</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43023543/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#4</span>
+        <span class="emoji-icon">👦</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>種族與性別基礎的社會壓力與韓裔華人青少年的調適</h3>
+      <p class="journal-source">The British journal of developmental psychology &middot; Ethnicity- and gender-based social stressors and parental socialization in Korean Chinese adolescent adjustment.</p>
+      <p>韓裔華人青少年中，來自南韓而非漢人的歧視與抑鬱、違法行為顯著相關；性別非符合規範的取笑與抑鬱、自殺意念相關；家長文化社會化具有保護作用，降低自殺與違法傾向，提升學校依附。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">韓裔華人青少年</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">家長社會化實踐</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">歧視 vs 無歧視；母親 vs 父親社會化</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">降低情緒問題、提升學校依附與調適</span></div>
+      </div>
+      <p class="utility-reason">💡 豐富了在西方之外的文化背景下，依附與親職互動的研究，指導跨文化青少年輔導策略。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">青少年發展</span><span class="tag">親文化社會化</span><span class="tag">種族歧視</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43031560/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#5</span>
+        <span class="emoji-icon">🏫</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>危機中的歸屬感：印度邊緣化少女校中斷的混合研究</h3>
+      <p class="journal-source">Journal of research on adolescence : the official journal of the Society for Research on Adolescence &middot; Belonging in crisis: A mixed-methods exploration of school disruption among marginalized girls in India.</p>
+      <p>COVID-19校 closure 加劇邊緣化印度少女的學校歸屬感衰減，家庭性別限制、早婚討論增加，但同儕連結、老師承認與教育志願維持了部分歸屬感，顯示需性別轉型的教育介入。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">印度邊緣化少女</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">COVID-19校 closure �狀況</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">2021 vs 2022 比較</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">學校歸屬感下降，但關鍵保護因子維持連結</span></div>
+      </div>
+      <p class="utility-reason">💡 提供了深入的生態系視角，了解危機時期依附形成的動態過程，指引創傷後教育復健。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">青少年</span><span class="tag">生態系統</span><span class="tag">跨代傳遞</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43031512/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#6</span>
+        <span class="emoji-icon">🩺</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>臨床高危精神病轉介青少年的臨床畫像：探索性回顧研究</h3>
+      <p class="journal-source">Clinical child psychology and psychiatry &middot; Clinical Profiles Among Adolescents Referred for Suspected Clinical High Risk for Psychosis: an Exploratory Retrospective Study.</p>
+      <p>CHRp青少年表現出二種典型畫像：一型為精神病光譜，另一型為較廣泛的心理環境脆弱，伴隨依附困難、安置歷史與自傷行為，無轉進精神病。強調診斷需區分依附相關困擾與真正的精神病前期狀態。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">被轉介疑似臨床高危精神病的青少年</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">多維度臨床評估（CAARMS、依附訪談）</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">精神病光譜 vs 依附/環境脆弱畫像</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">區分真正 prodromal 狀態與依附/人際困難，提昇預測特異性</span></div>
+      </div>
+      <p class="utility-reason">💡 改進了高危青少年篩選與分類，有助於針對依附相關問題進行精準早期干預，避免誤診。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">青少年</span><span class="tag">精神病前期</span><span class="tag">依附困難</span><span class="tag">創傷</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43031390/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#7</span>
+        <span class="emoji-icon">👨‍👧</span>
+        <span class="utility-low">低實用性</span>
+      </div>
+      <h3>親情社會化與カメルーン青少年的開放性：母子/父子關係品質作為調節因子</h3>
+      <p class="journal-source">Journal of research on adolescence : the official journal of the Society for Research on Adolescence &middot; Associations between parental emotion socialization and Cameroonian adolescents' openness: Mother- and father-adolescent relationship quality as moderators.</p>
+      <p>母親與父親的正向情緒社會化（營造樂趣）與青少年的開放性正相關；父親的情緒社會化效果受父子關係品質調節，僅在關係良好時才顯顯著。凸顯了父親在培餥青少年認知靈活性中的核心角色。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">卡麥倫青少年</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">親情社會化策略（營造 vs 壓抑）</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">母親 vs 父親社會化；高 vs 低關係品質</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">青少年開放性提昇，父親角色關鍵</span></div>
+      </div>
+      <p class="utility-reason">💡 樣本為卡麥倫背景，普適用性有限；但提供了關於父親特定情緒社會化機制的新見解。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">親情社會化</span><span class="tag">開放性</span><span class="tag">父親角色</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43024535/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#8</span>
+        <span class="emoji-icon">🦎</span>
+        <span class="utility-low">低實用性</span>
+      </div>
+      <h3>Smutsia temminckii（金氏食蟻熊）胸肢肌肉學說明</h3>
+      <p class="journal-source">Journal of anatomy &middot; Thoracic limb myology of Smutsia temminckii (Temminck's pangolin).</p>
+      <p>描述金氏食蟻熊胸肢肌肉結構與適應性，涉及挖掘、辨識肌肉附著點，屬生物力學研究，與依附理論關聯性極低。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">金氏食蟻熊</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">解剖學描述</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">肌肉圖譜生成，了解運動適應性</span></div>
+      </div>
+      <p class="utility-reason">💡 純粹基礎科學研究，無直接臨床心理應用價值。</p>
+      <div class="card-footer">
+        <span class="tag">解剖學</span><span class="tag">生物力學</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43031499/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div></div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">📚</span>其他值得關注的文獻</div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">👦</span>
+        <span class="utility-mid utility-sm">中</span>
+      </div>
+      <h3>種族與性別基礎的社會壓力與韓裔華人青少年的調適</h3>
+      <p class="journal-source">The British journal of developmental psychology</p>
+      <p>考察種族、性別歧視對韓裔華人青少年的影響，以及家長社會化在調適中的調節角色。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">青少年發展</span><span class="tag">親文化社會化</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43031560/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🏫</span>
+        <span class="utility-mid utility-sm">中</span>
+      </div>
+      <h3>危機中的歸屬感：印度邊緣化少女校中斷的混合研究</h3>
+      <p class="journal-source">Journal of research on adolescence : the official journal of the Society for Research on Adolescence</p>
+      <p>探討COVID-19校 closure 如何影響印度邊緣化少女的學校歸屬感，結合定量與定性數據。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">青少年</span><span class="tag">生態系統</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43031512/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🩺</span>
+        <span class="utility-mid utility-sm">中</span>
+      </div>
+      <h3>臨床高危精神病轉介青少年的臨床畫像：探索性回顧研究</h3>
+      <p class="journal-source">Clinical child psychology and psychiatry</p>
+      <p>區分CHRp青少年的精神病光譜畫像與依附/環境脆弱畫像，強調診斷特異性的重要性。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">青少年</span><span class="tag">精神病前期</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43031390/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">👨‍👧</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>親情社會化與カメルーン青少年的開放性：母子/父子關係品質作為調節因子</h3>
+      <p class="journal-source">Journal of research on adolescence : the official journal of the Society for Research on Adolescence</p>
+      <p>分析母親與父親正向/負向情緒社會化對青少年開放性的影響，以及關係品質的調節作用。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">親情社會化</span><span class="tag">開放性</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43024535/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">💊</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>Bioadhesive pH-responsive double-network hydrogel for local doxorubicin delivery against postoperative prostate cancer recurrence.</h3>
+      <p class="journal-source">Colloids and surfaces. B, Biointerfaces</p>
+      <p>開發pH響應水凝膠，實現前列腺癌術後局部藥物釋放，抑制復發與止血。</p>
+      <div class="card-footer">
+        <span class="tag">水凝膠</span><span class="tag">藥物遞送</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43025266/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🦎</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>Thoracic limb myology of Smutsia temminckii (Temminck's pangolin).</h3>
+      <p class="journal-source">Journal of anatomy</p>
+      <p>描述金氏食蟻熊胸肢肌肉結構，屬生物力學與解剖學研究。</p>
+      <div class="card-footer">
+        <span class="tag">解剖學</span><span class="tag">生物力學</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43031499/" target="_blank">PubMed →</a>
+      </div>
+    </div></div>
+
+  <div class="topic-section section"><div class="section-title"><span class="section-icon">📊</span>主題分佈</div>
+      <div class="topic-row">
+        <span class="topic-name">依附理論</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+        <span class="topic-count">8</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">成人依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:38%"></div></div>
+        <span class="topic-count">3</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">嬰幼兒依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附焦慮</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附逃避</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:13%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與憂鬱症</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:13%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與焦慮症</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:13%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與PTSD</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與創傷</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:13%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與解離</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與邊緣型人格</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與情緒調節</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附神經生物學</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">催產素</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:13%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">皮質醇</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">fMRI</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">親密關係</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:13%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">伴侶治療</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">婚姻品質</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">親職</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:13%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">照顧者敏感度</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">跨代傳遞</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:25%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">治療聯盟</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">心理治療</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:13%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">情緒聚焦治療</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">迷戀依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">解組依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">逃避依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">兒少依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:38%"></div></div>
+        <span class="topic-count">3</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">同儕依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:13%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與孤獨</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與成癮</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與飲食障礙</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與自傷</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:13%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">精神藥理學</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:0%"></div></div>
+        <span class="topic-count">0</span>
+      </div></div>
+
+  <div class="keywords-section section"><div class="section-title"><span class="section-icon">🏷️</span>關鍵字</div><div class="keywords"><span class="keyword">依附理論</span><span class="keyword">醫學教育</span><span class="keyword">跨文化</span><span class="keyword">青少年發展</span><span class="keyword">ATTACH程式</span><span class="keyword">臨床高危</span><span class="keyword">親情社會化</span><span class="keyword">鼻竇病變</span></div></div>
+
+  <div class="links-banner">
+    <a href="https://www.leepsyclinic.com/" class="link-card" target="_blank">
+      <span class="link-icon">🏥</span>
+      <span class="link-info">
+        <span class="link-name">李政洋身心診所首頁</span>
+        <span class="link-desc">專業身心科醫療服務</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+    <a href="https://blog.leepsyclinic.com/" class="link-card" target="_blank">
+      <span class="link-icon">📬</span>
+      <span class="link-info">
+        <span class="link-name">訂閱電子報</span>
+        <span class="link-desc">接收最新心理健康資訊</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+    <a href="https://buymeacoffee.com/CYlee" class="link-card coffee-card" target="_blank">
+      <span class="link-icon">☕</span>
+      <span class="link-info">
+        <span class="link-name">Buy Me a Coffee</span>
+        <span class="link-desc">支持我們繼續提供優質內容</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+  </div>
+
+  <footer>
+    <span>資料來源：PubMed &middot; 分析模型：nvidia/nemotron-3.5-lightning-30b-a3b</span>
+    <span><a href="https://github.com/u8901006/attachment-brain">GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
