@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Attachment Brain &middot; 依附關係文獻日報 &middot; 2026年11月28日</title>
+<meta name="description" content="2026年11月28日 依附關係文獻日報，由 AI 自動彙整 PubMed 最新論文"/>
+<style>
+  :root { --bg: #f6f1e8; --surface: #fffaf2; --line: #d8c5ab; --text: #2b2118; --muted: #766453; --accent: #8c4f2b; --accent-soft: #ead2bf; --card-bg: color-mix(in srgb, var(--surface) 92%, white); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(circle at top, #fff6ea 0, var(--bg) 55%, #ead8c6 100%); color: var(--text); font-family: "Noto Sans TC", "PingFang TC", "Helvetica Neue", Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 60px 32px 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 48px; height: 48px; border-radius: 14px; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 20px rgba(140,79,43,0.25); }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .header-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.3px; }
+  .badge-date { background: var(--accent-soft); border: 1px solid var(--line); color: var(--accent); }
+  .badge-count { background: rgba(140,79,43,0.06); border: 1px solid var(--line); color: var(--muted); }
+  .badge-source { background: transparent; color: var(--muted); font-size: 11px; padding: 0 4px; }
+  .summary-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px 32px; margin-bottom: 32px; box-shadow: 0 20px 60px rgba(61,36,15,0.06); animation: fadeUp 0.5s ease 0.1s both; }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--accent); margin-bottom: 16px; }
+  .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .section-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; background: var(--accent-soft); }
+  .news-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 22px 26px; margin-bottom: 12px; box-shadow: 0 8px 30px rgba(61,36,15,0.04); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .news-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .news-card.featured { border-left: 3px solid var(--accent); }
+  .news-card.featured:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .rank-badge { background: var(--accent); color: #fff7f0; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .emoji-icon { font-size: 18px; }
+  .card-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .emoji-sm { font-size: 14px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .journal-source { font-size: 12px; color: var(--accent); margin-bottom: 8px; opacity: 0.8; }
+  .news-card p { font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .utility-reason { font-size: 12px !important; color: var(--accent) !important; opacity: 0.85; margin-top: 4px; }
+  .card-footer { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { padding: 2px 9px; background: var(--accent-soft); border-radius: 999px; font-size: 11px; color: var(--accent); }
+  .news-card a { font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0.7; margin-left: auto; }
+  .news-card a:hover { opacity: 1; }
+  .utility-high { color: #5a7a3a; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(90,122,58,0.1); border-radius: 4px; }
+  .utility-mid { color: #9f7a2e; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(159,122,46,0.1); border-radius: 4px; }
+  .utility-low { color: var(--muted); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(118,100,83,0.08); border-radius: 4px; }
+  .utility-sm { font-size: 10px; }
+  .pico-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(255,253,249,0.8); border-radius: 14px; border: 1px solid var(--line); }
+  .pico-item { display: flex; gap: 8px; align-items: baseline; }
+  .pico-label { font-size: 10px; font-weight: 700; color: #fff7f0; background: var(--accent); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .pico-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .keywords-section { margin-bottom: 36px; }
+  .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .keyword { padding: 5px 14px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; font-size: 12px; color: var(--accent); cursor: default; transition: background 0.2s; }
+  .keyword:hover { background: rgba(140,79,43,0.18); }
+  .topic-section { margin-bottom: 36px; }
+  .topic-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .topic-name { font-size: 13px; color: var(--muted); width: 110px; flex-shrink: 0; text-align: right; }
+  .topic-bar-bg { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .topic-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #c47a4a); border-radius: 4px; transition: width 0.6s ease; }
+  .topic-count { font-size: 12px; color: var(--accent); width: 24px; }
+  .links-banner { margin-top: 48px; display: flex; flex-direction: column; gap: 12px; animation: fadeUp 0.5s ease 0.4s both; }
+  .link-card { display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; text-decoration: none; color: var(--text); transition: all 0.2s; box-shadow: 0 8px 30px rgba(61,36,15,0.04); }
+  .link-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .link-icon { font-size: 28px; flex-shrink: 0; }
+  .link-info { flex: 1; }
+  .link-name { font-size: 15px; font-weight: 700; color: var(--text); }
+  .link-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .link-arrow { font-size: 18px; color: var(--accent); font-weight: 700; }
+  .coffee-card { background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 100%); border-color: #f59e0b40; }
+  footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; animation: fadeUp 0.5s ease 0.5s both; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) { .container { padding: 36px 18px 60px; } .summary-card, .news-card { padding: 20px 18px; } .pico-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 6px; text-align: center; } .topic-name { width: 80px; font-size: 11px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">🔗</div>
+    <div class="header-text">
+      <h1>Attachment Brain &middot; 依附關係文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">📅 2026年11月28日</span>
+        <span class="badge badge-count">📊 10 篇文獻</span>
+        <span class="badge badge-source">Powered by PubMed + NVIDIA AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日文獻趨勢</h2>
+    <p class="summary-text">今日文獻集中探討了依附理論在心理治療、神經生物學與健康結果中的應用，特別是針對創傷後成長、精神藥理干預及兒童成療的影響。值得注意的是，大量研究探索了依附焦慮、依附回避與各種心理病理之間的中介機制，顯示出理論在臨床實踐中驗證與調適的重點。</p>
+  </div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">⭐</span>今日精選 TOP Picks</div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#1</span>
+        <span class="emoji-icon">🧠</span>
+        <span class="utility-high">高實用性</span>
+      </div>
+      <h3>High remission rates and visual network normalization in severely traumatized children following medication-free, intensive inpatient psychotherapy.</h3>
+      <p class="journal-source">Translational psychiatry &middot; High remission rates and visual network normalization in severely traumatized children following medication-free, intensive inpatient psychotherapy.</p>
+      <p>針對嚴重創傷兒童，以 attachment-based（依附為基礎）強化住院治療，未使用藥物即達成顯著症狀緩解與腦功能正常化，表現出極高的臨床效用。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">具有嚴重童年創傷史的 6-13 歲兒童</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">強化、無藥物、依附為基礎的住院心理治療（每週 5 次個案 + 3 次團體治療，6-8 個月）</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">健康對照組與等待清單對照組</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">行為症狀與創傷症狀緩解率極高；fMRI 顯示視覺網路功能重組，趨近健康對照模式</span></div>
+      </div>
+      <p class="utility-reason">💡 提供了一種無藥物、高強度的治療選項，能顯著改善嚴重創傷兒童的臨庪表現與腦功能，對提升治療效果有直接影響。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">成人依附</span><span class="tag">嬰幼兒依附</span><span class="tag">依附與創傷</span><span class="tag">心理治療</span><span class="tag">fMRI</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43103976/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#2</span>
+        <span class="emoji-icon">⚠️</span>
+        <span class="utility-high">高實用性</span>
+      </div>
+      <h3>Psycho-Social Factors of Non-Suicidal Self Injury Among Adolescents Admitted to Tertiary Psychiatric Centre.</h3>
+      <p class="journal-source">Clinical child psychology and psychiatry &middot; Psycho-Social Factors of Non-Suicidal Self Injury Among Adolescents Admitted to Tertiary Psychiatric Centre.</p>
+      <p>青少年 NSSI 行為的關鍵預測因子是附件斷裂與不良養育經驗，累積的 psychosocial 風險因素與重次精神住院顯著相關，強調家庭介入的重要性。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">12-18 歲住院青少年</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">觀察性研究，分析 psychosocial 風險因子</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無對照組（retrospective chart review）</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">發現 attachment ruptures (71.3%) 是 NSSI 的主要 psychosocial 風險因子之一；風險因子累積與重次住院顯著相關</span></div>
+      </div>
+      <p class="utility-reason">💡 直接點出了 NSSI 青少年治療中的核心問題（附件斷裂、養育不佳），指引臨床工作者優先進行家庭系统評估與介入。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">依附與自傷</span><span class="tag">青少年依附</span><span class="tag">依attachment ruptures</span><span class="tag">親職</span><span class="tag">心理治療</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43102395/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#3</span>
+        <span class="emoji-icon">🍄</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>Enduring increases in attachment security following psychedelic retreats: prospective pre-, post-, and follow-up findings.</h3>
+      <p class="journal-source">Attachment & human development &middot; Enduring increases in attachment security following psychedelic retreats: prospective pre-, post-, and follow-up findings.</p>
+      <p>迷幻退修會（主要使用 psilocybin）隨著附件安全感的持久增加，尤其對 baseline 組別的不安全個體有顯著效果，且神秘體驗預測了附件改變。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">參加 psilocybin 退修會的成年人 (N=173)</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">單次或有監督的 psilocybin 退修體驗</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">隨時間變化的自體對照（pre-, post-, follow-up）</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">dispositional avoidance 與 anxiety 顯著下降；state security 顯著增加； mystical experiences 預測改變幅度</span></div>
+      </div>
+      <p class="utility-reason">💡 作為一項新興介入，顯示出在促進附件安全感方面的潛力，但仍需更大樣本與長期追蹤驗證其穩定性與安全性。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">依附與精神藥理學</span><span class="tag">迷戀依附</span><span class="tag">fMRI</span><span class="tag">心理治療</span><span class="tag">成人依附</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43102004/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#4</span>
+        <span class="emoji-icon">📊</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>Childhood trauma and coping strategies in adults: The role of attachment insecurity.</h3>
+      <p class="journal-source">Child abuse & neglect &middot; Childhood trauma and coping strategies in adults: The role of attachment insecurity.</p>
+      <p>童年創傷透過附件焦慮與回避間接影響成年人的應對方式，特別是情緒誘因下的回避與求助行為，提供了明確的中介路徵圖。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">411 名 mean age 34.6 歲的成年人</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">觀察性 cross-sectional-survey</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無對照組</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">attachment anxiety 中介情緒誘因與回避/求助應對之間的關聯；attachment avoidance 中 mediate 情緒誘因與求助不足</span></div>
+      </div>
+      <p class="utility-reason">💡 透過量化分析闡明了童年創傷影響成年後來應對機制的路徵，對認知行為介入與附件調適治療有理論指導意義。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">依附焦慮</span><span class="tag">依附回避</span><span class="tag">童年創傷</span><span class="tag">應對策略</span><span class="tag">成人依附</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43103235/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#5</span>
+        <span class="emoji-icon">👨‍👧</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>Disengaged Parenting in Relation to Emotional Neglect and Adult Wellbeing.</h3>
+      <p class="journal-source">Child psychiatry and human development &middot; Disengaged Parenting in Relation to Emotional Neglect and Adult Wellbeing.</p>
+      <p>解離式養育（disengaged parenting）雖與情緒忽視有重疊，但獨立預測成年人的心理 distress，而非 life satisfaction，指出了其獨特的臨床意義。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">1,058 名 mean age 25.67 歲的成年人（回憶童年經驗）</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">觀察性調查</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無對照組</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">DP 與心理 distress 顯著相關；DP 並不預測 life satisfaction，而情緒忽視則兩者皆顯著</span></div>
+      </div>
+      <p class="utility-reason">💡 區分了「解離式養育」與「情緒忽視」兩種不同的養育模式，有助於臨床工作者在評估時更精準鑑別風險來源。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">依附與情緒調節</span><span class="tag">親職</span><span class="tag">情緒忽視</span><span class="tag">成人依附</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43102728/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div>
+    <div class="news-card featured">
+      <div class="card-header">
+        <span class="rank-badge">#6</span>
+        <span class="emoji-icon">🏥</span>
+        <span class="utility-mid">中實用性</span>
+      </div>
+      <h3>Gaps in the transition from pediatric to adult health care for adolescents and young adults with autism spectrum disorder and special health care needs.</h3>
+      <p class="journal-source">Medical education online &middot; Gaps in the transition from pediatric to adult health care for adolescents and young adults with autism spectrum disorder and special health care needs.</p>
+      <p>自閉症譜系障礙（ASD）青少年從兒科向成人醫療轉診時，常因系統結構差異而仍繫留在兒科提供者，強調了結構化過程與照護者介入的必要性。</p>
+      
+      <div class="pico-grid">
+        <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">16-30 歲 ASD 青少年與特別照護需求者</span></div>
+        <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">醫療轉討過程分析與資源開發</span></div>
+        <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無對照組（觀察性研究）</span></div>
+        <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">揭露了轉討缺口，尤其在鄉地區；利用家屬開發資源可提升轉討準備度與成人醫療歸屬</span></div>
+      </div>
+      <p class="utility-reason">💡 雖非純粹依附理論研究，但「照護者敏感度」與「依附安全感」是轉討成功的關鍵變項，提供了實踐層面的策略建議。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">跨代傳遞</span><span class="tag">照顧者敏感度</span><span class="tag">成人依附</span><span class="tag">醫療轉討</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43102831/" target="_blank">閱讀原文 →</a>
+      </div>
+    </div></div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">📚</span>其他值得關注的文獻</div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🦷</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>Radicular and Periodontal Defects in a Murine Model of X-Linked Hypophosphatemia.</h3>
+      <p class="journal-source">Oral diseases</p>
+      <p>小鼠模型中鉻鹼缺乏症導致牙根結構異常與牙周附著非對稱，牙本質細胞過程形態異常是關鍵發現。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">成人依附</span><span class="tag">嬰幼兒依附</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43104781/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🧬</span>
+        <span class="utility-mid utility-sm">中</span>
+      </div>
+      <h3>From metabolic bystander to central regulator: the lactate-lactylation axis in head and neck squamous cell carcinoma.</h3>
+      <p class="journal-source">Annals of medicine</p>
+      <p>乳酸不再僅作為新陳代謝廢物，作為乳酸乙酰化修飾在 HNSCC 中調控免疫逃逸與腫瘤惡性進程，提供新的生物標記與治療靶點。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">依附與癌症</span><span class="tag">依附神經生物學</span><span class="tag">催產素</span><span class="tag">皮質醇</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43104808/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">🔬</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>Regenerated cellulose microfiber-based bone defect fillers with tunable density and enhanced initial antibacterial activity mediated by silver oxide nanoparticles.</h3>
+      <p class="journal-source">International journal of biological macromolecules</p>
+      <p>鹵化銀氧化物複合之再生纖維骨缺損填充物，具備可調密度與初期抗菌活性，顯示出骨組織工程潛力。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">成人依附</span><span class="tag">嬰幼兒依附</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43103721/" target="_blank">PubMed →</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="card-header-row">
+        <span class="emoji-sm">⚕️</span>
+        <span class="utility-low utility-sm">低</span>
+      </div>
+      <h3>Combined resective osseous and mucogingival surgery in a single-stage approach: Two case reports.</h3>
+      <p class="journal-source">Clinical advances in periodontics</p>
+      <p>單階段手術同時處理骨質重塑與黏膜增生手術，縮短治療週期，無併發症，根覆蓋結果良好。</p>
+      <div class="card-footer">
+        <span class="tag">依附理論</span><span class="tag">成人依附</span><span class="tag">嬰幼兒依附</span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/43102036/" target="_blank">PubMed →</a>
+      </div>
+    </div></div>
+
+  <div class="topic-section section"><div class="section-title"><span class="section-icon">📊</span>主題分佈</div>
+      <div class="topic-row">
+        <span class="topic-name">依附理論</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+        <span class="topic-count">7</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">成人依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:71%"></div></div>
+        <span class="topic-count">5</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">嬰幼兒依附</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:43%"></div></div>
+        <span class="topic-count">3</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附焦慮</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:57%"></div></div>
+        <span class="topic-count">4</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附回避</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:57%"></div></div>
+        <span class="topic-count">4</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與創傷</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:43%"></div></div>
+        <span class="topic-count">3</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">依附與自傷</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:14%"></div></div>
+        <span class="topic-count">1</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">心理治療</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:43%"></div></div>
+        <span class="topic-count">3</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">fMRI</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:29%"></div></div>
+        <span class="topic-count">2</span>
+      </div>
+      <div class="topic-row">
+        <span class="topic-name">親職</span>
+        <div class="topic-bar-bg"><div class="topic-bar" style="width:29%"></div></div>
+        <span class="topic-count">2</span>
+      </div></div>
+
+  <div class="keywords-section section"><div class="section-title"><span class="section-icon">🏷️</span>關鍵字</div><div class="keywords"><span class="keyword">依附理論</span><span class="keyword">成人依附</span><span class="keyword">創傷</span><span class="keyword">精神治療</span><span class="keyword">臨床實踐</span></div></div>
+
+  <div class="links-banner">
+    <a href="https://www.leepsyclinic.com/" class="link-card" target="_blank">
+      <span class="link-icon">🏥</span>
+      <span class="link-info">
+        <span class="link-name">李政洋身心診所首頁</span>
+        <span class="link-desc">專業身心科醫療服務</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+    <a href="https://blog.leepsyclinic.com/" class="link-card" target="_blank">
+      <span class="link-icon">📬</span>
+      <span class="link-info">
+        <span class="link-name">訂閱電子報</span>
+        <span class="link-desc">接收最新心理健康資訊</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+    <a href="https://buymeacoffee.com/CYlee" class="link-card coffee-card" target="_blank">
+      <span class="link-icon">☕</span>
+      <span class="link-info">
+        <span class="link-name">Buy Me a Coffee</span>
+        <span class="link-desc">支持我們繼續提供優質內容</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+  </div>
+
+  <footer>
+    <span>資料來源：PubMed &middot; 分析模型：nvidia/nemotron-3.5-lightning-30b-a3b</span>
+    <span><a href="https://github.com/u8901006/attachment-brain">GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
